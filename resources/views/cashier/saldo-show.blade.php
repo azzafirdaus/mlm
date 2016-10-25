@@ -17,7 +17,7 @@
                                     <div class="alert alert-success">
                                         <div class="container-fluid hasil">
                                             <i class="fa fa-info"></i>
-                                            <b> Jumlah Saldo: </b>Rp {{ number_format($saldo) }}
+                                            &nbsp;<b> Jumlah Saldo: </b>Rp {{ number_format($saldo) }}
                                         </div>
                                     </div>
                                 </div>
@@ -25,7 +25,7 @@
                         </div>
                         <br />
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-4 col-md-pull-1" style="padding-left:0; padding-top:0;">
                                 <button type="button" onclick="location.href = '{{ url('cashier/saldo') }}';" class="btn btn-info">
                                     <i class="fa fa-angle-left"></i>
                                     Back

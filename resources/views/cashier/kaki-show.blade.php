@@ -46,7 +46,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-4" style="padding-left:0; padding-top:3em; margin-left:-2em;">
                             <button type="button" onclick="location.href = '{{ url('cashier/kaki') }}';" class="btn btn-info">
                                 <i class="fa fa-angle-left"></i>
                                 Back

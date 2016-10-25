@@ -1,9 +1,13 @@
 .centered {
-  position: fixed;
+  position: absolute;
   top: 50%;
   left: 50%;
   /* bring your own prefixes */
   transform: translate(-50%, -50%);
+}
+
+a, a:hover {
+    text-decoration: none;
 }
 
 .centering {
@@ -26,12 +30,60 @@ h2, h3, h4, h4, p {
     padding-left: 0.5em;
 }
 
+::-webkit-input-placeholder {
+    font-size: 14pt!important;
+}
+::-moz-placeholder { 
+    font-size: 16pt!important; 
+} /* firefox 19+ */
+
+:-ms-input-placeholder { 
+    font-size: 16pt!important;
+} /* ie */
+
+input:-moz-placeholder { 
+    font-size: 16pt!important;
+}
+
+.btn, .btn:not(.btn-just-icon):not(.btn-fab) .fa, .navbar .navbar-nav > li > a.btn:not(.btn-just-icon):not(.btn-fab) .fa {
+    font-size:18pt;
+}
+
+.nav-pills > li a {
+    background-color: dodgerblue;
+    border-radius: 0!important;
+    color: #fff;
+    font-size: 25pt;
+    padding:0.5em;
+}
+
+.nav-pills > li a:hover {
+    color: dodgerblue;
+}
+
+.nav-pills > li {
+    border-color: dodgerblue !important;
+    
+}
+
+.nav-pills > li i {
+    font-size: 55pt !important;
+}
+
+h1 {
+    font-size: 55pt;
+}
+
+p, table > thead, table > tbody {
+    font-size: 16pt;
+}
+
 .hasil .fa.fa-info, .hasil, .hasil b {
     font-size: 16pt;
 }
 
 .cek-saldo, .cek-saldo.cek-topup {
-    padding-top: 2em;
+    padding-top: 3em;
     padding-bottom: 2em;
 }
 
@@ -40,8 +92,11 @@ h2, h3, h4, h4, p {
 }
 
 .register .btn {
-    font-size: 26pt;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    font-size: 36pt;
 }
+
 
 .cek-saldo .btn.btn-info, .cek-saldo.cek-topup .btn.btn-primary {
     margin-left: 4.5em;

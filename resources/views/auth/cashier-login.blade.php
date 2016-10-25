@@ -4,7 +4,7 @@
 <body class="index-page centered centering"> 
     <div class="container">
         <div class="row">            
-            <div class="col-md-6 col-md-push-3">
+            <div class="col-md-8 col-md-push-2">
                 <div class="card cek-saldo cek-topup">
                     <!-- BEGIN LOGIN FORM -->
                     <form class="login-form" action="{{ url('/auth/cashierlogin') }}" method="post">

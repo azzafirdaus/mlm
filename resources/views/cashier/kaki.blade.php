@@ -4,7 +4,7 @@
 <body class="index-page centered">     
     <div class="container">
         <div class="row">
-            <div class="col-md-6 col-md-push-3">
+            <div class="col-md-8 col-md-push-2">
                 <div class="card cek-saldo">
                     <form class="kaki-form" action="{{ url('cashier/kaki') }}" method="post">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -32,7 +32,7 @@
                         </div>
                         <br />
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-4" style="padding-left:0; margin-left:-1em;">
                                 <button type="button" onclick="location.href = '{{ url('/cashier') }}';" class="btn btn-info">
                                     <i class="fa fa-angle-left"></i>
                                     Back
