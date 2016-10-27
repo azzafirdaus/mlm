@@ -68,6 +68,11 @@ class AdminController extends Controller{
         return redirect('auth/adminlogin')->with('loginError', 'Please login first!');
     }
 
+    /**
+     * Admin laporan keseluruhan.
+     *
+     * @return void
+     */
     public function laporan($tanggal = null){
 
         $ldate = date('Y-m-d H:i:s');
@@ -82,7 +87,64 @@ class AdminController extends Controller{
             ->with('totalTopup', $totalTopup)
             ->with('totalRegister', $totalRegister)
             ->with('totalTarik', $totalTarik)
-            ->with('activePage', 'trans-keseluruhan')
+            ->with('activePage', 'lap-keseluruhan')
+            ->with('peran', 0);
+    }
+
+    /**
+     * Admin laporan topup.
+     *
+     * @return void
+     */
+    public function laporanTopup($tanggal = null){
+
+        $ldate = date('Y-m-d H:i:s');
+        list($date, $time) = preg_split('/[ ]/', $ldate);
+        
+        $totalTopup = KartuHistori::getTotalTopupOn(Periode::getLastId());
+         
+        return view('admin/pages/laporan/topup')
+            ->with('lastDate', $date)
+            ->with('totalTopup', $totalTopup)
+            ->with('activePage', 'lap-topup')
+            ->with('peran', 0);
+    }
+
+    /**
+     * Admin laporan registrasi.
+     *
+     * @return void
+     */
+    public function laporanRegister($tanggal = null){
+
+        $ldate = date('Y-m-d H:i:s');
+        list($date, $time) = preg_split('/[ ]/', $ldate);
+
+        $totalRegister = KartuHistori::getTotalRegistrasiOn(Periode::getLastId());
+         
+        return view('admin/pages/laporan/registrasi')
+            ->with('lastDate', $date)
+            ->with('totalRegister', $totalRegister)
+            ->with('activePage', 'lap-register')
+            ->with('peran', 0);
+    }
+
+    /**
+     * Admin laporan tarik.
+     *
+     * @return void
+     */
+    public function laporanTarik($tanggal = null){
+
+        $ldate = date('Y-m-d H:i:s');
+        list($date, $time) = preg_split('/[ ]/', $ldate);
+        
+        $totalTarik = KartuHistori::getTotalTarikOn(Periode::getLastId());
+        
+        return view('admin/pages/laporan/tarik')
+            ->with('lastDate', $date)
+            ->with('totalTarik', $totalTarik)
+            ->with('activePage', 'lap-tarik')
             ->with('peran', 0);
     }
 
