@@ -6,13 +6,13 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Auth, Validator, Input;
+use Auth, Validator, Input, DB;
 use App\User;
 use App\Tarif;
 use App\Periode;
 use App\KartuHistori;
+use App\KakiHistori;
 use App\Kartu;
-use DB;
 
 class AdminController extends Controller{
    
@@ -62,7 +62,7 @@ class AdminController extends Controller{
     public function dashboard(){
         if(Auth::check()){
             return view('admin.pages.dashboard')
-                ->with('total', KartuHistori::getTotalTransaksi())
+                ->with('total', KartuHistori::getTotalTransaksi(Periode::getLastId()))
                 ->with('activePage', 'dashboard');  
         }
         return redirect('auth/adminlogin')->with('loginError', 'Please login first!');
@@ -74,21 +74,22 @@ class AdminController extends Controller{
      * @return void
      */
     public function laporan($tanggal = null){
-
-        $ldate = date('Y-m-d H:i:s');
-        list($date, $time) = preg_split('/[ ]/', $ldate);
-        
-        $totalTopup = KartuHistori::getTotalTopupOn(Periode::getLastId());
-        $totalRegister = KartuHistori::getTotalRegistrasiOn(Periode::getLastId());
-        $totalTarik = KartuHistori::getTotalTarikOn(Periode::getLastId());
-        
-        return view('admin/pages/laporan/keseluruhan')
-            ->with('lastDate', $date)
-            ->with('totalTopup', $totalTopup)
-            ->with('totalRegister', $totalRegister)
-            ->with('totalTarik', $totalTarik)
-            ->with('activePage', 'lap-keseluruhan')
-            ->with('peran', 0);
+        if(Auth::check()){   
+            $date = date('Y-m-d', strtotime(Periode::getLastDate()));
+            
+            $totalTopup = KartuHistori::getTotalTopupOn(Periode::getLastId());
+            $totalRegister = KartuHistori::getTotalRegistrasiOn(Periode::getLastId());
+            $totalTarik = KartuHistori::getTotalTarikOn(Periode::getLastId());
+            
+            return view('admin.pages.laporan.kas')
+                ->with('lastDate', $date)
+                ->with('totalTopup', $totalTopup)
+                ->with('totalRegister', $totalRegister)
+                ->with('totalTarik', $totalTarik)
+                ->with('activePage', 'laporan')
+                ->with('peran', 0);
+        }
+        return redirect('auth/adminlogin')->with('loginError', 'Please login first!');
     }
 
     /**
@@ -96,18 +97,42 @@ class AdminController extends Controller{
      *
      * @return void
      */
-    public function laporanTopup($tanggal = null){
+    public function topup(){
+        if(Auth::check()){   
+            $startdate = date('Y-m-d', strtotime(Periode::getLastDate()));
 
-        $ldate = date('Y-m-d H:i:s');
-        list($date, $time) = preg_split('/[ ]/', $ldate);
-        
-        $totalTopup = KartuHistori::getTotalTopupOn(Periode::getLastId());
-         
-        return view('admin/pages/laporan/topup')
-            ->with('lastDate', $date)
-            ->with('totalTopup', $totalTopup)
-            ->with('activePage', 'lap-topup')
-            ->with('peran', 0);
+            return view('admin.pages.laporan.topup')
+                ->with('data', KartuHistori::all()->where('jenis', 'Top Up')->where('idperiode', Periode::getLastId()))
+                ->with('activePage', 'lap-topup')
+                ->with('startdate', $startdate)
+                ->with('peran', 0);
+        }
+        return redirect('auth/adminlogin')->with('loginError', 'Please login first!');
+    }
+
+    /**
+     * Admin laporan topup tanggal.
+     *
+     * @return void
+     */
+    public function topupTanggal(){
+        if(Auth::check()){   
+            $startdate = Input::get('startdate');
+            $enddate = Input::get('enddate');
+
+            $periods = KartuHistori::getByDate($startdate, $enddate);
+
+            return view('admin.pages.laporan.topup')
+                ->with('data', DB::table('kartu_histori')
+                    ->where('jenis', 'Top Up')
+                    ->whereIn('idperiode', $periods)
+                    ->get())
+                ->with('activePage', 'lap-topup')
+                ->with('startdate', $startdate)
+                ->with('enddate', $enddate)
+                ->with('peran', 0);
+        }
+        return redirect('auth/adminlogin')->with('loginError', 'Please login first!');
     }
 
     /**
@@ -115,18 +140,44 @@ class AdminController extends Controller{
      *
      * @return void
      */
-    public function laporanRegister($tanggal = null){
+    public function register(){
+        if(Auth::check()){   
+            $startdate = date('Y-m-d', strtotime(Periode::getLastDate()));
 
-        $ldate = date('Y-m-d H:i:s');
-        list($date, $time) = preg_split('/[ ]/', $ldate);
+            return view('admin.pages.laporan.register')
+                ->with('data', KartuHistori::all()
+                    ->where('jenis', 'Registrasi')
+                    ->where('idperiode', Periode::getLastId()))
+                ->with('activePage', 'lap-register')
+                ->with('startdate', $startdate)
+                ->with('peran', 0);
+        }
+        return redirect('auth/adminlogin')->with('loginError', 'Please login first!');
+    }
 
-        $totalRegister = KartuHistori::getTotalRegistrasiOn(Periode::getLastId());
-         
-        return view('admin/pages/laporan/registrasi')
-            ->with('lastDate', $date)
-            ->with('totalRegister', $totalRegister)
-            ->with('activePage', 'lap-register')
-            ->with('peran', 0);
+    /**
+     * Admin laporan registrasi tanggal.
+     *
+     * @return void
+     */
+    public function registrasiTanggal(){
+        if(Auth::check()){   
+            $startdate = Input::get('startdate');
+            $enddate = Input::get('enddate');
+
+            $periods = KartuHistori::getByDate($startdate, $enddate);
+
+            return view('admin.pages.laporan.register')
+                ->with('data', DB::table('kartu_histori')
+                    ->where('jenis', 'Registrasi')
+                    ->whereIn('idperiode', $periods)
+                    ->get())
+                ->with('activePage', 'lap-register')
+                ->with('startdate', $startdate)
+                ->with('enddate', $enddate)
+                ->with('peran', 0);
+        }
+        return redirect('auth/adminlogin')->with('loginError', 'Please login first!');
     }
 
     /**
@@ -134,52 +185,133 @@ class AdminController extends Controller{
      *
      * @return void
      */
-    public function laporanTarik($tanggal = null){
+    public function tarik($tanggal = null){
+        if(Auth::check()){   
+            $startdate = date('Y-m-d', strtotime(Periode::getLastDate()));
 
-        $ldate = date('Y-m-d H:i:s');
-        list($date, $time) = preg_split('/[ ]/', $ldate);
-        
-        $totalTarik = KartuHistori::getTotalTarikOn(Periode::getLastId());
-        
-        return view('admin/pages/laporan/tarik')
-            ->with('lastDate', $date)
-            ->with('totalTarik', $totalTarik)
-            ->with('activePage', 'lap-tarik')
-            ->with('peran', 0);
+            return view('admin.pages.laporan.tarik')
+                ->with('data', KartuHistori::all()
+                    ->where('jenis', 'Tarik Tunai')
+                    ->where('idperiode', Periode::getLastId()))
+                ->with('activePage', 'lap-tarik')
+                ->with('startdate', $startdate)
+                ->with('peran', 0);
+        }
+        return redirect('auth/adminlogin')->with('loginError', 'Please login first!');
     }
 
+    /**
+     * Admin laporan tarik tanggal.
+     *
+     * @return void
+     */
+    public function tarikTanggal(){
+        if(Auth::check()){   
+            $startdate = Input::get('startdate');
+            $enddate = Input::get('enddate');
+
+            $periods = KartuHistori::getByDate($startdate, $enddate);
+
+            return view('admin.pages.laporan.tarik')
+                ->with('data', DB::table('kartu_histori')
+                    ->where('jenis', 'Tarik Tunai')
+                    ->whereIn('idperiode', $periods)
+                    ->get())
+                ->with('activePage', 'lap-tarik')
+                ->with('startdate', $startdate)
+                ->with('enddate', $enddate)
+                ->with('peran', 0);
+        }
+        return redirect('auth/adminlogin')->with('loginError', 'Please login first!');
+    }
+
+    /**
+     * Admin laporan kasir.
+     *
+     * @return void
+     */
+    public function kasir(){
+        if(Auth::check()){   
+            return view('admin.pages.laporan.kasir')
+                ->with('data', KartuHistori::getLaporanKasir())
+                ->with('activePage', 'kasir')
+                ->with('peran', 0);
+        }
+        return redirect('auth/adminlogin')->with('loginError', 'Please login first!');
+    }
+
+    /**
+     * Admin laporan setoran.
+     *
+     * @return void
+     */
+    public function setoran(){
+        if(Auth::check()){
+            $date = date('Y-m-d', strtotime(Periode::getLastDate()));
+            
+            $totalTopup = KartuHistori::getTotalTopupOn(Periode::getLastId());
+            $totalRegister = KartuHistori::getTotalRegistrasiOn(Periode::getLastId());
+            $totalTarik = KartuHistori::getTotalTarikOn(Periode::getLastId());
+            
+            return view('admin.pages.laporan.setoran')
+                ->with('lastDate', $date)
+                ->with('totalKas', ($totalTopup + $totalRegister - $totalTarik))
+                ->with('totalKartu', (KartuHistori::getJumlahRegistrasi(Periode::getLastId()) * Tarif::getHarga('Kartu')))
+                ->with('activePage', 'setoran')
+                ->with('peran', 0);
+        }
+        return redirect('auth/adminlogin')->with('loginError', 'Please login first!');
+    }
+
+    /**
+     * Index pengguna.
+     *
+     * @return void
+     */
     public function pengguna(){
         if(Auth::check()){
-            return view('admin.pages.pengguna')
+            return view('admin.pages.pengguna.index')
                 ->with('accountList', User::all())
                 ->with('activePage', 'pengguna');
         }
-        return redirect('auth/adminlogin')
-            ->with('loginError', 'Please login first!');
+        return redirect('auth/adminlogin')->with('loginError', 'Please login first!');
     }
     
+    /**
+     * Create pengguna.
+     *
+     * @return void
+     */
     public function penggunaCreate(){
         if(Auth::check()){
             User::add(Input::get('nama'), Input::get('username'), \Hash::make(Input::get('password')), Input::get('role'));
             return $this->pengguna();
         }
-        return redirect('auth/adminlogin')
-            ->with('loginError', 'Please login first!');
+        return redirect('auth/adminlogin')->with('loginError', 'Please login first!');
     }
     
+    /**
+     * Delete pengguna.
+     *
+     * @return void
+     */
     public function penggunaDelete(){
         if(Auth::check()){
             User::deleteUser(Input::get('id'));
             return $this->pengguna();
         }
-        return redirect('auth/adminlogin')
-            ->with('loginError', 'Please login first!');
+        return redirect('auth/adminlogin')->with('loginError', 'Please login first!');
     }
 
+    /**
+     * Update pengguna.
+     *
+     * @return void
+     */
     public function penggunaUpdate(){
         if(Auth::check()){
             $id = Input::get('id');
-            return view('admin.pages.pengguna-update')
+            return view('admin.pages.pengguna.update')
                 ->with('id', $id)
                 ->with('username', User::getUsername($id))
                 ->with('password', User::getPassword($id))
@@ -187,10 +319,14 @@ class AdminController extends Controller{
                 ->with('role', User::getRoles($id))
                 ->with('activePage', 'pengguna');
         }
-        return redirect('auth/adminlogin')
-            ->with('loginError', 'Please login first!');
+        return redirect('auth/adminlogin')->with('loginError', 'Please login first!');
     }
     
+    /**
+     * Update pengguna.
+     *
+     * @return void
+     */
     public function penggunaUpdateData(){
         if(Auth::check()){
             $id = Input::get('id');
@@ -209,239 +345,160 @@ class AdminController extends Controller{
             
             return $this->pengguna();   
         }
-        return redirect('auth/adminlogin')
-            ->with('loginError', 'Please login first!');
-    }
-
-
-    public function setoran(){
-
-        $ldate = date('Y-m-d H:i:s');
-        list($date, $time) = preg_split('/[ ]/', $ldate);
-        
-        $totalKartu = GelangCustomer::getTotalOn(Periode::getLastId());
-        $transaksi = TransaksiMassage::all()->where('id_periode', Periode::getLastId());
-        $totalTerapis = 0;
-        
-        foreach($transaksi as $ehem) {
-            $totalTerapis += $ehem->refund*0.1;
-        }
-        
-        return view('admin/pages/setoran')
-            ->with('lastDate', $date)
-            ->with('totalKartu', $totalKartu)
-            ->with('totalTerapis', $totalTerapis)
-            ->with('activePage', 'setoran')
-            ->with('peran', 0);
-    }
+        return redirect('auth/adminlogin')->with('loginError', 'Please login first!');
+    }    
     
-    
-
-    public function terapis(){
-
-        return view('admin/pages/terapis')->with('itemList', Terapis::all())->with('activePage', 'terapis')->with('peran', 0);
+    /**
+     * Index fasilitas.
+     *
+     * @return void
+     */
+    public function fasilitas(){
+        return view('admin.pages.fasilitas.index')
+            ->with('itemList', Tarif::all())
+            ->with('activePage', 'fasilitas')
+            ->with('peran', 1);
     }
 
-    public function terapis_create(){
+    /**
+     * Create fasilitas.
+     *
+     * @return void
+     */
+    public function fasilitasCreate(){
 
-        return view('admin/pages/terapis-create')->with('activePage', 'terapis')->with('peran', 0);
-    }
-    
-    public function terapis_add(){
-
-        if (Terapis::countExist(Input::get('noKartu')) == 0) {
-            Terapis::add(Input::get('noKartu'), Input::get('nama'));
-            return view('admin/pages/terapis')->with('itemList', Terapis::all())->with('activePage', 'terapis')->with('peran', 0);
-        } else {
-            return view('admin/pages/terapis')->with('itemList', Terapis::all())->withErrors('No kartu terapis sudah dipakai')->with('activePage', 'terapis')->with('peran', 0);
-        }
+        return view('admin.pages.fasilitas.create')
+            ->with('activePage', 'fasilitas')
+            ->with('peran', 1);
     }
 
-    public function terapis_update(){
-
-        return view('admin/pages/terapis-update')->with('activePage', 'terapis')->with('peran', 0);
-    }
-
-    public function terapis_absen(){
-
-        return view('admin/pages/terapis-absen')->with('activePage', 'terapis-absen')->with('peran', 0);
-    }
-    
-    public function terapis_absen_hasil(){
-
-        $data = array();
-        $periode = Periode::all();
-        foreach($periode as $period) {
-            
-            list($date, $time) = preg_split('/[ ]/', $period->start);
-            list($year, $month, $day) = preg_split('/[-]/', $date);
-            
-            list($year1, $month1, $day1) = preg_split('/[-]/', Input::get('startDate'));
-            
-            list($year2, $month2, $day2) = preg_split('/[-]/', Input::get('endDate'));
-            
-            if ($year >= $year1 && $year <= $year2) {
-                if ($month >= $month1 && $month <= $month2) {
-                    if ($day >= $day1 && $day <= $day2) {
-                        array_push($data, 
-                      [
-                        'periode' => $period->id_periode,
-                        'tanggal' => $date
-                      ]);
-                    }
-                }
-            }
-        }
+    /**
+     * Create fasilitas.
+     *
+     * @return void
+     */
+    public function fasilitasAdd(){
         
-        $absen = array();
+        Tarif::add(Input::get('namaItem'), Input::get('harga'));
         
-        foreach($data as $datanya) {
-            
-            $dataAbsen = Absen::getAbsen($datanya['periode']);
-            
-            foreach($dataAbsen as $hmmm) {
-                array_push($absen, 
-                      [
-                        'id' => $hmmm->id_therapist,
-                        'tanggal' => $datanya['tanggal']
-                      ]
-                      );
-            }
-            
-        }
-        
-        
-        return view('admin/pages/terapis-absen-hasil')->with('data', $absen)->with('activePage', 'terapis-absen')->with('peran', 0);
+        return view('admin.pages.fasilitas.index')
+            ->with('itemList', Tarif::all())
+            ->with('activePage', 'fasilitas')
+            ->with('peran', 1);
     }
 
-    public function terapis_laporan(){
-
-        list($date, $time) = preg_split('/[ ]/', Periode::getLastDate());
-        return view('admin/pages/terapis-laporan')->with('itemList', TransaksiMassage::all()->where('id_periode', Periode::getLastId()))->with('lastDate', $date)->with('activePage', 'terapis-laporan')->with('peran', 0);
-    }
-
-    public function makanan(){
-        return view('admin/pages/makanan')->with('itemList', Item::all())->with('activePage', 'makanan')->with('peran', 1);
-    }
-
-    public function makanan_create(){
-
-        return view('admin/pages/makanan-create')->with('activePage', 'makanan')->with('peran', 1);
-    }
-
-    public function makanan_add(){
-        if(Item::exists(Input::get('id')) == 0) {
-        Item::add(Input::get('nama'), Input::get('price'), Input::get('id'));
-        return view('admin/pages/makanan')->with('itemList', Item::all())->with('activePage', 'makanan')->with('peran', 1);
-        } else {
-            return view('admin/pages/makanan')->with('itemList', Item::all())->withErrors('Id makanan sudah terdaftar')->with('activePage', 'makanan')->with('peran', 1);
-        }
-    }
-
-    public function makanan_update(){
-    	return view('admin/pages/makanan-update')
+    /**
+     * Update fasilitas.
+     *
+     * @return void
+     */
+    public function fasilitasUpdate(){
+    	return view('admin.pages.fasilitas.update')
             ->with('id', Input::get('id'))
-            ->with('nama', Item::getNama(Input::get('id')))
-            ->with('price', Item::getPrice(Input::get('id')))
-            ->with('activePage', 'makanan')
+            ->with('nama', Tarif::getNama(Input::get('id')))
+            ->with('harga', Tarif::getHarga(Tarif::getNama(Input::get('id'))))
+            ->with('activePage', 'fasilitas')
             ->with('peran', 1);
     }
     
-    public function makanan_update_data(){
+    /**
+     * Update fasilitas.
+     *
+     * @return void
+     */
+    public function fasilitasUpdateData(){
         
         $id = Input::get('id');
         $nama = Input::get('nama');
-        $price = Input::get('price');
-        
-        
-        Item::updateNama($id, $nama);
-        Item::updatePrice($id, $price);
-        
-        return view('admin/pages/makanan')->with('itemList', Item::all())->with('activePage', 'makanan')->with('peran', 1);   
-    }
-    
-    
-    public function makanan_delete(){
-        
-        Item::deleteItem(Input::get('id'));
-        return view('admin/pages/makanan')->with('itemList', Item::all())->with('activePage', 'makanan')->with('peran', 1);
-    }
-    
-    
-    public function fasilitas(){
-        return view('admin/pages/fasilitas')->with('itemList', Fasilitas::all())->with('activePage', 'fasilitas')->with('peran', 0);
-    }
-
-    public function fasilitas_create(){
-
-        return view('admin/pages/fasilitas-create')->with('activePage', 'fasilitas')->with('peran', 0);
-    }
-
-    public function fasilitas_add(){
-        
-        Fasilitas::add(Input::get('namaItem'), Input::get('harga'), Input::get('menit'));
-        return view('admin/pages/fasilitas')->with('itemList', Fasilitas::all())->with('activePage', 'fasilitas')->with('peran', 0);
-    }
-
-    public function fasilitas_update(){
-    	return view('admin/pages/fasilitas-update')
-            ->with('id', Input::get('id'))
-            ->with('nama', Fasilitas::getNama(Input::get('id')))
-            ->with('menit', Fasilitas::getMenit(Input::get('id')))
-            ->with('harga', Fasilitas::getHarga(Fasilitas::getNama(Input::get('id')), Fasilitas::getMenit(Input::get('id'))))
-            ->with('activePage', 'fasilitas')
-            ->with('peran', 0);
-    }
-    
-    public function fasilitas_update_data(){
-        
-        $id = Input::get('id');
-        $nama = Input::get('nama');
-        $menit = Input::get('menit');
         $price = Input::get('harga');
         
+        Tarif::updateNama($id, $nama);
+        Tarif::updateHarga($id, $price);
         
-        Fasilitas::updateNama($id, $nama);
-        Fasilitas::updateHarga($id, $price);
-        Fasilitas::updateMenit($id, $menit);
-        
-        return view('admin/pages/fasilitas')->with('itemList', Fasilitas::all())->with('activePage', 'fasilitas')->with('peran', 0);   
+        return view('admin.pages.fasilitas.index')
+            ->with('itemList', Tarif::all())
+            ->with('activePage', 'fasilitas')
+            ->with('peran', 1);   
     }
     
-    public function fasilitas_delete(){
+    /**
+     * Delete fasilitas.
+     *
+     * @return void
+     */
+    public function fasilitasDelete(){
         
-        Fasilitas::deleteItem(Input::get('id'));
-        return view('admin/pages/fasilitas')->with('itemList', Fasilitas::all())->with('activePage', 'fasilitas')->with('peran', 0);
-    }
-
-    public function kartu(){
-
-        return view('admin/pages/kartu')->with('data', GelangCustomer::all()->where('id_periode', Periode::getLastId()))->with('activePage', 'kartu')->with('peran', 0);
-    }   
-
-    public function laporanOb(){
-
-        list($date, $time) = preg_split('/[ ]/', Periode::getLastDate());
-
-        $id_periode = Periode::getLastId();
-
-        $transaksi = DB::table('transaksi_massage')
-                 ->select('no_kartu', DB::raw('count(*) as total'))
-                 ->where('id_periode', $id_periode)
-                 ->groupBy('no_kartu')
-                 ->get();
-
-        return view('admin/pages/laporanOb')->with('data', $transaksi)
-            ->with('lastDate', $date)
-            ->with('activePage', 'laporanOb')->with('peran', 0);
+        Tarif::deleteItem(Input::get('id'));
+        return view('admin.pages.fasilitas.index')
+            ->with('itemList', Tarif::all())
+            ->with('activePage', 'fasilitas')
+            ->with('peran', 1);
     }    
 
-    public function kasir_laporan(){
+    /**
+     * Admin laporan kaki.
+     *
+     * @return void
+     */
+    public function kaki(){
+        if(Auth::check()){   
+            $startdate = date('Y-m-d', strtotime(Periode::getLastDate()));
+            $data = KakiHistori::all()->where('idperiode', Periode::getLastId());
 
-        return view('admin/pages/kasir-laporan')
-        ->with('data', GelangCustomer::getLaporanKasir())
-        ->with('activePage', 'kasir')
-        ->with('peran', 0);
+            return view('admin.pages.kaki.index')
+                ->with('data', $data)
+                ->with('jumlahKaki', count($data))
+                ->with('activePage', 'kaki')
+                ->with('startdate', $startdate)
+                ->with('peran', 1);
+        }
+        return redirect('auth/adminlogin')->with('loginError', 'Please login first!');
     }
-    
+
+    /**
+     * Admin laporan kaki tanggal.
+     *
+     * @return void
+     */
+    public function kakiTanggal(){
+        if(Auth::check()){   
+            $startdate = Input::get('startdate');
+            $enddate = Input::get('enddate');
+
+            $periods = KakiHistori::getByDate($startdate, $enddate);
+            $data = DB::table('kaki_histori')
+                    ->whereIn('idperiode', $periods)
+                    ->get();
+
+            return view('admin.pages.kaki.index')
+                ->with('data', $data)
+                ->with('jumlahKaki', count($data))
+                ->with('activePage', 'kaki')
+                ->with('startdate', $startdate)
+                ->with('enddate', $enddate)
+                ->with('peran', 1);
+        }
+        return redirect('auth/adminlogin')->with('loginError', 'Please login first!');
+    }
+
+    /**
+     * Admin laporan kaki.
+     *
+     * @return void
+     */
+    public function disable(){
+        if(Auth::check()){   
+            $date = date('Y-m-d', strtotime(Periode::getLastDate()));
+            $data = Kartu::all()->where('isactive', 0);
+
+            return view('admin.pages.kaki.disable')
+                ->with('data', $data)
+                ->with('jumlahDisable', count($data))
+                ->with('activePage', 'disable')
+                ->with('date', $date)
+                ->with('peran', 1);
+        }
+        return redirect('auth/adminlogin')->with('loginError', 'Please login first!');
+    }
+
 }

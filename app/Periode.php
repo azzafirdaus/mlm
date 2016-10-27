@@ -11,36 +11,27 @@ class Periode extends Model
     protected $table = 'periode';
     public $timestamps = false;
     
-    public static function start()
-    {
+    public static function start() {
 
         $periode = new Periode;
-
         $ldate = date('Y-m-d H:i:s');
-        
         $periode->start = $ldate;
-
         $periode->active = true;
-        
         $periode->save();
     }
     
-    public static function stop()
-    {
-
+    public static function stop(){
         $ldate = date('Y-m-d H:i:s');
         
-        DB::table('periode')->where('active', true)->update(['end' => $ldate]);;
-        DB::table('periode')->where('active', true)->update(['active' => false]);;
-        
+        DB::table('periode')->where('active', true)->update(['end' => $ldate, 'active' => false]);    
     }
     
     public static function getLastDate() {
-        return DB::table('periode')->orderBy('id', 'desc')->pluck('start');;
+        return DB::table('periode')->orderBy('id', 'desc')->pluck('start');
     }
     
     public static function getLastId() {
-        return DB::table('periode')->orderBy('id', 'desc')->pluck('id');;
+        return DB::table('periode')->orderBy('id', 'desc')->pluck('id');
     }
     
     /*public static function plus()
@@ -54,10 +45,7 @@ class Periode extends Model
     
     
     public static function getActive() {
-        $active = DB::table('periode')
-                     ->where('active', '=', true)->pluck('id');
-        
-        return $active;
+        return DB::table('periode')->where('active', '=', true)->pluck('id');        
     }
     
     public static function activeExist() {
@@ -70,4 +58,5 @@ class Periode extends Model
             return false;
         }
     }
+
 }

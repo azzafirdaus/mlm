@@ -9,28 +9,14 @@
       Laporan Kas
     </h3>
     
-    <br />
-    <button type="button" class="btn btn-success"><i class="fa fa-download"></i> Export</button>
-    <button type="button" class="btn btn-success"><i class="fa fa-print"></i> Print</button>
+    <br class="hidden-print"/>
+    <button type="button" onclick="window.print();" class="btn btn-success pull-left hidden-print"><i class="fa fa-print"></i> Print</button>
       
-    <br /><br /><br /><br />
+    <br class="hidden-print" /><br class="hidden-print"/><br class="hidden-print"/>
       
     <!-- BEGIN PAGE CONTENT-->
     <div class="row">
-      <div class="col-md-8 pull-right">
-        <div class="col-md-2">
-            <h5 style="margin-top:0.5em;"><strong>Periode</strong></h5>
-        </div>
-        <div class="col-md-4">
-            <div class="input-group input-group-sm">
-                <span class="input-group-btn">
-                <button class="btn btn-default" type="button"><i class="fa fa-calendar"></i></button>
-                </span>
-                <input type="date" class="form-control form-filter" value="{{ $lastDate }}">
-            </div>
-        </div>
-      </div>
-      <br /><br /><br />
+      <br />
       <div class="col-md-12">
         <div class="portlet">
           <div class="portlet-body">
@@ -43,7 +29,6 @@
             <br/><br />
             <!-- print struk -->
             <div class="struk">
-                <p>Tanggal Transaksi : {{ $lastDate }}</p>
                 <p>Total Laporan Kas : Rp. {{ number_format($totalTopup + $totalRegister - $totalTarik) }}</p>
             </div><!-- end of print struk --> 
                           

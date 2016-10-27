@@ -3,8 +3,8 @@
 @section('content')
 <!-- BEGIN PAGE HEADER-->
 <h3 class="page-title" style="font-size:28px;">
-        Pengguna
-        </h3>
+Pengguna
+</h3>
 <!-- END PAGE HEADER-->
 <!-- BEGIN CRUD TABLE -->
 <div class="portlet-body">
@@ -43,19 +43,19 @@
                      {{ $account->role }}
                 </td>
                 <td>
-                    <form action="{{ url('admin/pengguna/update') }}" method="post">
+                    <form action="{{ url('admin/pengguna/update') }}" method="get">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <input class="hidden" type="" autocomplete="off" placeholder="" name="id" value="{{ $account->id }}"/>
+                        
                         <button type="submit" class="btn btn-default btn-xs" style="font-size:16px;"><i class="fa fa-edit"></i> Ubah</button>
-                        <button type="submit" formaction="{{ url('admin/pages/pengguna-delete') }}" class="btn btn-default btn-xs" style="font-size:16px;"><i class="fa fa-eraser"></i> Hapus</button>
+                        <button type="submit" formaction="{{ url('admin/pengguna/delete') }}" class="btn btn-default btn-xs" style="font-size:16px;"><i class="fa fa-eraser"></i> Hapus</button>
                     </form>
                 </td>
             </tr>    
             @endforeach        
             </tbody>
         </table>
-    </div>
-    
+    </div>  
 </div>
 <!-- END CRUD TABLE -->
 @stop

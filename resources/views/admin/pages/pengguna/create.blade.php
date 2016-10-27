@@ -39,12 +39,8 @@
                 <label class="col-md-3 control-label">Role</label>
                 <div class="col-md-3 control-label">                 
                     <select name="role" class="form-control">
-            
-                            <option>admin</option>
-                            <option>supervisor</option>
-                            <option>cashier</option>
-                            <option>bar</option>
-                            <option>anton</option>
+                        <option>admin</option>
+                        <option>cashier</option>
                     </select>
                 </div>
             </div>

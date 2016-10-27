@@ -1,5 +1,5 @@
 <!-- BEGIN SIDEBAR -->
-<div class="page-sidebar navbar-collapse collapse">
+<div class="page-sidebar navbar-collapse collapse hidden-print">
     <br />
       <!-- BEGIN SIDEBAR MENU -->        
       <ul class="page-sidebar-menu">
@@ -11,7 +11,7 @@
             </a>
         </li>
         @if(Auth::user()->role == 'admin') 
-        <li class="@if('kartu' === $activePage) active @endif ">
+        <li class="@if($activePage === 'lap-topup' || $activePage === 'lap-register' || $activePage === 'lap-tarik' || $activePage === 'laporan') active @endif ">
             <a href="#">
                 <i class="fa fa-credit-card"></i> 
                 <span class="title">Laporan Kartu</span>
@@ -19,15 +19,15 @@
                 <span class="arrow"></span>
             </a>
             <ul class="sub-menu">
-                <li class="@if('topup' === $activePage) active @endif">
+                <li class="@if('lap-topup' === $activePage) active @endif">
                     <a href="{{ url('admin/laporan/topup') }}">
                     Top Up</a>
                 </li>
-                <li class="@if('registrasi' === $activePage) active @endif">
+                <li class="@if('lap-register' === $activePage) active @endif">
                     <a href="{{ url('admin/laporan/register') }}">
                     Registrasi</a>
                 </li>
-                <li class="@if('tarik' === $activePage) active @endif">
+                <li class="@if('lap-tarik' === $activePage) active @endif">
                     <a href="{{ url('admin/laporan/tarik') }}">
                     Tarik Tunai</a>
                 </li>
@@ -61,7 +61,7 @@
             </a>
         </li>
 
-        <li class="@if('tarif' === $activePage) active @endif ">
+        <li class="@if('fasilitas' === $activePage) active @endif ">
             <a href="{{ url('admin/fasilitas') }}">
             <i class="fa fa-dollar"></i> 
             <span class="title">Tarif</span>
@@ -70,9 +70,17 @@
         </li>
 
         <li class="@if('kaki' === $activePage) active @endif ">
-            <a href="{{ url('admin/laporan/kaki') }}">
-            <i class="fa fa-gears"></i> 
+            <a href="{{ url('admin/kaki') }}">
+            <i class="fa fa-group"></i> 
             <span class="title">Kaki Bawah</span>
+            <span class="selected"></span>
+            </a>
+        </li>
+
+        <li class="@if('disable' === $activePage) active @endif ">
+            <a href="{{ url('admin/disable') }}">
+            <i class="fa fa-ban"></i> 
+            <span class="title">Kartu Disable</span>
             <span class="selected"></span>
             </a>
         </li>
