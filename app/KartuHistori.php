@@ -11,6 +11,16 @@ class KartuHistori extends Model
     protected $table = 'kartu_histori';
     public $timestamps = false;
     
+    public static function getTotalTransaksi(){
+        $transactions = DB::table('kartu_histori')->count();
+        return $transactions;
+    }
+
+    public static function getAllTransaksi(){
+        $transactions = DB::table('kartu_histori')->get();
+        return $transactions;
+    }
+
     public static function deleteTuple($id) {
         DB::table('kartu_histori')->where('id', $id)->delete();   
     }
@@ -19,7 +29,7 @@ class KartuHistori extends Model
         return DB::table('kartu_histori')->where('id', $noGelang)->pluck('id_customer');
     }*/
     
-     public static function clear() {
+    public static function clear() {
         DB::table('kartu_histori')->truncate();
     }
     

@@ -5,7 +5,7 @@
     <div class="container">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">        
         <div class="row">
-            <div class="col-md-6 col-md-push-3">
+            <div class="col-md-10 col-md-push-1">
                 <div class="card cek-saldo cek-topup">
                     <h1 class="text-center">Cashier Menu</h1>
                     <div class="row">
@@ -21,7 +21,7 @@
                                 <div class="ripple-container"></div>
                             </button>
                         </div>
-                        <div class="col-md-3 col-md-push-2">
+                        <div class="col-md-3 col-md-push-1">
                             <button class="btn btn-primary btn-cashier" data-toggle="modal" data-target="#openMd1">
                                 <i class="fa fa-credit-card"></i>
                                 Open Transaction
@@ -31,33 +31,36 @@
                     </div>
                     <br /><br />
                     <div class="row">
-                        <div class="col-md-10 col-md-push-1">
+                        <div class="col-md-12 col-md-push-1" style="padding-left:0;">
                             <div class="col-md-12 text-center" style="padding-left: 2.8em; padding-right:0;">
                                 <ul>
                                      @foreach ($errors->all() as $error)
                                     <li style='font-size: 16px; color: red'>{{ $error }}</li>
                                      @endforeach
-                                <p style='font-size: 16px; color: green'>{{ $success }}</p>
+                                <p style='font-size: 16px; color: green; margin-top:-2em!important;'>{{ isset($success)? $success : '' }}</p>
 
                                 <?='<span style="font-size: 16px; color: red">'.Session::get('condition').'</span>'?>
                                 </ul>
-
+                                <br />
                                 <ul class="nav nav-pills" role="tablist">
                                     <li>
                                         <a href="{{ url('cashier/register') }}">
                                             <i class="fa fa-user"></i>
+                                            <br />
                                             Register
                                         </a>
                                     </li>
                                     <li>
                                         <a href="{{ url('cashier/topup') }}">
                                             <i class="fa fa-money"></i>
-                                            Top Up
+                                            <br />
+                                            Top Up Kartu
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ url('cashier/reset') }}">
+                                        <a href="{{ url('cashier/tarik') }}">
                                             <i class="fa fa-dollar"></i>
+                                            <br />
                                             Tarik Saldo
                                         </a>
                                     </li>
@@ -74,7 +77,7 @@
                                 <div class="ripple-container"></div>
                             </button>
                         </div>
-                        <div class="col-sm-2">                
+                        <div class="col-sm-2" style="padding-left:4.5em;">                
                             <button type="button" onclick="location.href = '{{ url('cashier/kaki') }}';" class="btn btn-success">
                                 <span class="glyphicon glyphicon-list"></span> Cek Kaki
                             </button>

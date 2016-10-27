@@ -59,21 +59,60 @@
                     </div>
                     <br />
                     <div class="row">
-                        <div class="col-md-4">
-                            <div class="btn btn-info">
-                                <i class="fa fa-angle-left"></i>
-                                &nbsp;Back
-                                <div class="ripple-container"></div>
-                            </div>
-                        </div>
                         <div class="col-md-4 pull-right">
-                            <div class="btn btn-primary btn-regis">
+                            <div id="daftar" class="btn btn-primary btn-regis">
                                 <i class="fa fa-check"></i>
                                 &nbsp;Daftar
                                 <div class="ripple-container"></div>
                             </div>
                         </div>
                     </div>
+                    
+                    <div id="lihat-daftar" style="display:none;">
+                        <br />
+                        <div class="row">
+                            <div class="col-md-10 col-md-push-1">
+                                <hr />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-10 col-md-push-1 text-center">
+                                <p>No. Kartu: 1234567890</p>
+                                <br />
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">Jumlah Saldo Kartu</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-center">100000</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-4">
+                                <a class="btn btn-info" href="menu-cashier.html">
+                                    <i class="fa fa-angle-left"></i>
+                                    &nbsp;Back to Cashier
+                                    <div class="ripple-container"></div>
+                                </a>
+                            </div>
+                            <div class="col-md-4 pull-right">
+                                <div class="btn btn-primary btn-print">
+                                    <i class="fa fa-print"></i>
+                                    &nbsp;Print
+                                    <div class="ripple-container"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -109,8 +148,8 @@
 
 		});
         
-        $('#lihat').click(function() {
-            $('#lihat-kartu').toggle();
+        $('#daftar').click(function() {
+            $('#lihat-daftar').toggle();
         });
 	</script>
 </html>

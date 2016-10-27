@@ -5,8 +5,11 @@
     <div class="container">
         <div class="row register">
             <div class="col-md-6 col-md-push-3">
-                <?='<span style="font-size: 16px; color: red">'.Session::get('loginError').'</span>'?>
-                <div class="btn btn-success" onclick="">
+                @foreach ($errors->all() as $error)
+                <li style='font-size: 16px; color: white'>{{ $error }}</li>
+                @endforeach
+                
+                <div class="btn btn-success" onclick="location.href = '{{ url('player/daftar') }}';">
                     &nbsp;&nbsp;Daftar&nbsp;&nbsp;
                     <div class="ripple-container"></div>
                 </div>

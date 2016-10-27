@@ -12,7 +12,7 @@ class RelasiKaki extends Model
     public $timestamps = false;
     
     public static function getKaki($id){
-        $feet = DB::table('relasi_kaki')->where('idkepala', $id);
+        $feet = DB::table('relasi_kaki')->where('idkepala', $id)->get();
         return $feet;
     }
 
@@ -21,8 +21,8 @@ class RelasiKaki extends Model
         return $feetcount;
     }
 
-    public static function cekAvailable($idkepala, $idkaki){
-        $feet = $this->getKaki($idkepala);
+    public static function cekBukanKaki($idkepala, $idkaki){
+        $feet = RelasiKaki::getKaki($idkepala);
         $status = True;
 
         foreach ($feet as $key => $foot) {

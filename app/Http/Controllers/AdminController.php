@@ -16,6 +16,11 @@ use DB;
 
 class AdminController extends Controller{
    
+    /**
+     * Admin login
+     *
+     * @return void
+     */
     public function login(){
 
         $rules = array(
@@ -25,39 +30,42 @@ class AdminController extends Controller{
 
         $validator = Validator::make(Input::all(), $rules);
 
-        if($validator->fails()){
-            return redirect('auth/cashierlogin')->withErrors($validator);
-        } else {
+        if(!$validator->fails()){
             $user = array(
                 'username' => Input::get('username'),
                 'password' => Input::get('password') 
             );
 
             if(Auth::attempt($user)){
-                return redirect('admin')
-                    ->with('activePage', 'home');
+                return redirect('admin')->with('activePage', 'home');
             }
-
-            return redirect('auth/adminlogin')
-                ->with('loginError', 'Wrong username or password');
+            return redirect('auth/adminlogin')->with('loginError', 'Wrong username or password');
         }
-        
+        return redirect('auth/cashierlogin')->withErrors($validator);
     }
-
+    
+    /**
+     * Admin logout.
+     *
+     * @return void
+     */
     public function logout(){
         Auth::logout();
         return redirect('auth/adminlogin');
     }
 
+    /**
+     * Admin dashboard.
+     *
+     * @return void
+     */
     public function dashboard(){
         if(Auth::check()){
-            $total = 100;
             return view('admin.pages.dashboard')
-                ->with('activePage', 'dashboard')
-                ->with('total', $total);    
+                ->with('total', KartuHistori::getTotalTransaksi())
+                ->with('activePage', 'dashboard');  
         }
-        return redirect('auth/adminlogin')
-            ->with('loginError', 'Please login first!');
+        return redirect('auth/adminlogin')->with('loginError', 'Please login first!');
     }
 
     public function pengguna(){

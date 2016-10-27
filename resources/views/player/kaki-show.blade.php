@@ -29,7 +29,7 @@
                     <br /><br /><br />
                     <div class="row">
                         <div class="col-md-4 col-md-push-1">
-                            <div class="btn btn-default" @if($jumlahkaki == 1) style="background-color: maroon" @endif >
+                            <div class="btn btn-default" @if($jumlahkaki >= 1) style="background-color: maroon" @endif >
                                 &nbsp;Kaki Bawah
                                 <div class="ripple-container"></div>
                             </div>
@@ -46,7 +46,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-4" style="padding-left:0; padding-top:3em; margin-left:-2em;">
                             <button type="button" onclick="location.href = '{{ url('player/kaki') }}';" class="btn btn-info">
                                 <i class="fa fa-angle-left"></i>
                                 Back

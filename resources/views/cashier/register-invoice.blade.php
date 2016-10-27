@@ -6,7 +6,7 @@
         <form class="form" action="{{ url('cashier/register') }}" method="post">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="row">
-                <div class="col-md-6 col-md-push-3">
+                <div class="col-md-8 col-md-push-2">
                     <div class="card cek-saldo cek-topup">
                         <h1 class="text-center hidden-print">Register Customer</h1>
                         <ul>
@@ -17,7 +17,6 @@
                         <?='<span style="font-size: 16px; color: red">'.Session::get('loginError').'</span>'?>
                         
                         <div id="tagihan">
-                            <br />
                             <div class="row hidden-print">
                                 <div class="col-md-10 col-md-push-1 hidden-print">
                                     <hr />
@@ -44,7 +43,7 @@
                             </div>
                             <br />
                             <div class="form-actions hidden-print">
-                                <div class="col-md-4">
+                                <div class="col-md-4 col-md-pull-1">
                                     <button type="button" onclick="location.href = '{{ url('/cashier') }}';" class="btn btn-info">
                                         <i class="fa fa-angle-left"></i>
                                         Back to Cashier
