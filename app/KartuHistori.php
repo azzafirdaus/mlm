@@ -15,8 +15,8 @@ class KartuHistori extends Model
         return DB::table('kartu_histori')->get();
     }
 
-    public static function getTotalTransaksi(){
-        return DB::table('kartu_histori')->count();
+    public static function getTotalTransaksi($id){
+        return DB::table('kartu_histori')->where('idperiode', $id)->count();
     }
 
     public static function getTotalOn($id) {
@@ -47,11 +47,31 @@ class KartuHistori extends Model
         DB::table('kartu_histori')->truncate();
     }
     
-    public static function getLaporanKasir() {
+    public static function getLaporanKasir($idperiode = null) {
+        if($idperiode == null){
+            $idperiode = Periode::getLastId();
+        }
+
         return DB::table('kartu_histori')
-        ->select('namakasir', DB::raw('count(case jenis when "Registrasi" then 1 else null end) as total_berapa, sum(total) as total_kasir'))
+        ->select('namakasir', DB::raw('count(case jenis when "Registrasi" then 1 else null end) as totalregister,
+            sum(case jenis when "Registrasi" then total else null end) as jumlahregistrasi,
+            sum(case jenis when "Top Up" then total else null end) as jumlahtopup, 
+            sum(case jenis when "Tarik Tunai" then total else null end) as jumlahtarik'))
         ->groupBy('namakasir')
-        ->where('idperiode', Periode::getActive())
+        ->where('idperiode', $idperiode)
         ->get();
+    }
+
+    public static function getByDate($startdate = null, $enddate = null){
+        $periods = DB::table('kartu_histori')
+            ->whereBetween('tanggal', [$startdate, $enddate])
+            ->distinct()
+            ->lists('idperiode');
+
+        return $periods;
+    }
+
+    public static function getJumlahRegistrasi($id){
+        return DB::table('kartu_histori')->where('idperiode', $id)->where('jenis', 'Registrasi')->count();
     }
 }

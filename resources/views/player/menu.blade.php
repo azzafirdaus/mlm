@@ -18,11 +18,6 @@
                     Cek Saldo
                     <div class="ripple-container"></div>
                 </div>
-                <br />
-                <div class="btn btn-info text-center" onclick="location.href = '{{ url('player/kaki') }}';">
-                    &nbsp;&nbsp;Cek Kaki&nbsp;&nbsp;
-                    <div class="ripple-container"></div>
-                </div>
             </div>
         </div>
     </div>

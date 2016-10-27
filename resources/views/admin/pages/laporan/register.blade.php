@@ -6,14 +6,14 @@
   <div class="col-md-12">
     <!-- BEGIN PAGE TITLE & BREADCRUMB-->   
     <h3 class="page-title">
-      Laporan Tarik Tunai
+      Laporan Registrasi Kartu
     </h3>
       
     <br /><br /><br /><br />
-      
+    
     <!-- BEGIN PAGE CONTENT-->
 		<div class="row">
-            <form class="top-tanggal-form" action="{{ url('admin/laporan/tarik') }}" method="post">
+            <form class="top-tanggal-form" action="{{ url('admin/laporan/register') }}" method="post">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
             
                 <div class="col-md-8 pull-right">
@@ -112,8 +112,8 @@
                     </div>
                     <!-- End: life time stats -->
                 </div>
-            </form>
-		</div>
+	        </form>
+        </div>
 		<!-- END PAGE CONTENT-->
 
       

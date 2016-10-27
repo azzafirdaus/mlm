@@ -44,7 +44,7 @@
 
     <script type="text/javascript">
 
-        $("#jumlah-auto").lazzynumeric({aSep: ".", aDec: ","});
+        $("#jumlah-auto").lazzynumeric({aSep: ",", mDec: "0"});
 
         $().ready(function(){
             // the body of this function is in assets/material-kit.js

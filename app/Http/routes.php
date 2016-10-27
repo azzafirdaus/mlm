@@ -128,14 +128,19 @@ Route::group(array('prefix' => 'admin'), function(){
     Route::group(array('prefix' => 'laporan'), function(){
         // main page for the admin/laporan section
         Route::get('/', 'AdminController@laporan');
-        Route::get('topup', 'AdminController@laporanTopup');
-        Route::get('register', 'AdminController@laporanRegister');
-        Route::get('tarik', 'AdminController@laporanTarik');
+        
+        Route::get('topup', 'AdminController@topup');
+        Route::post('topup', 'AdminController@topupTanggal');
+        
+        Route::get('register', 'AdminController@register');
+        Route::post('register', 'AdminController@registerTanggal');
+        
+        Route::get('tarik', 'AdminController@tarik');
+        Route::post('tarik', 'AdminController@tarikTanggal');
 
-        Route::get('kasir', 'AdminController@kasir_laporan');
-        Route::get('kartu', 'AdminController@kartu');
-        Route::get('kaki', 'AdminController@kaki');
+        Route::get('kasir', 'AdminController@kasir');
         Route::get('setoran', 'AdminController@setoran');
+        
     });
 
     Route::group(array('prefix' => 'pengguna'), function(){
@@ -143,21 +148,25 @@ Route::group(array('prefix' => 'admin'), function(){
         Route::get('/', 'AdminController@pengguna');
 
         Route::get('create', function(){
-            return View::make('admin.pages.pengguna-create')
+            return View::make('admin.pages.pengguna.create')
                 ->with('activePage', 'pengguna');
         });
 
         Route::post('create', 'AdminController@penggunaCreate');
-        Route::post('delete', 'AdminController@penggunaDelete');
-        Route::post('update', 'AdminController@penggunaUpdate');
-        Route::get('update', 'AdminController@penggunaUpdateData');
+        Route::get('delete', 'AdminController@penggunaDelete');
+        Route::get('update', 'AdminController@penggunaUpdate');
+        Route::post('update', 'AdminController@penggunaUpdateData');
     });
     
     Route::group(array('prefix' => 'fasilitas'), function(){
-        // main page for the admin/laporan section
+        // main page for the admin/fasilitas section
         Route::get('/', 'AdminController@fasilitas');
-        Route::get('update', 'AdminController@fasilitas_update_data');
-        Route::post('update', 'AdminController@fasilitas_update');
-        Route::post('delete', 'AdminController@fasilitas_delete');
+        Route::post('update', 'AdminController@fasilitasUpdateData');
+        Route::get('update', 'AdminController@fasilitasUpdate');
+        Route::get('delete', 'AdminController@fasilitasDelete');
     });
+
+    Route::get('kaki', 'AdminController@kaki');
+    Route::post('kaki', 'AdminController@kakiTanggal');
+    Route::get('disable', 'AdminController@disable');
 });
