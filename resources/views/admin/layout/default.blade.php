@@ -74,21 +74,28 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/uniform/jquery.uniform.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/jquery-validation/dist/jquery.validate.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
-
-
-
 <!-- END CORE PLUGINS -->
 
-
-
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script type="text/javascript" src="{{ asset('assets/plugins/jqvmap/jqvmap/jquery.vmap.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/jquery.peity.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/jquery.pulsate.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/jquery-knob/js/jquery.knob.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/flot/jquery.flot.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/flot/jquery.flot.resize.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/bootstrap-daterangepicker/moment.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/gritter/js/jquery.gritter.js') }}"></script>
+<!-- IMPORTANT! fullcalendar depends on jquery-ui-1.10.3.custom.min.js for drag & drop support -->
+<script type="text/javascript" src="{{ asset('assets/plugins/fullcalendar/fullcalendar/fullcalendar.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/scripts/jquery.table2excel.js') }}" ></script>
+<script type="text/javascript" src="{{ asset('assets/scripts/jquery.base64.js') }}" ></script>
+<script type="text/javascript" src="{{ asset('assets/scripts/tableExport.js') }}" ></script>
 <script type="text/javascript" src="{{ asset('assets/scripts/app.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/scripts/index.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/scripts/tasks.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/scripts/login.js') }}" ></script>
-<script type="text/javascript" src="{{ asset('assets/scripts/jquery.table2excel.js') }}" ></script>
-<script type="text/javascript" src="{{ asset('assets/scripts/jquery.base64.js') }}" ></script>
-<script type="text/javascript" src="{{ asset('assets/scripts/tableExport.js') }}" ></script>
 
 <!-- END PAGE LEVEL SCRIPTS -->
 <script>
