@@ -20,35 +20,23 @@
                                         <i class="fa fa-barcode"></i>
                                     </span>
                                     <div class="form-group is-empty is-focused">
-                                        <input text="text" class="form-control" placeholder="Nomor Kartu" name="idkartu" id="idkartu">
-                                        <span class="material-input"></span>
+                                        <input text="text" class="form-control" style='font-size: 24px;' placeholder="Nomor Kartu" name="idkartu" id="idkartu">
+                                        
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <br />
-                        <div class="row">
-                            <div class="col-md-4">
-                                <button type="button" onclick="location.href = '{{ url('/player') }}';" class="btn btn-info">
-                                    <i class="fa fa-angle-left"></i>
-                                    Home
-                                    <div class="ripple-container"></div>
-                                </button>
-                            </div>
-                            <!-- <div class="col-md-4 pull-right">
-                                <button type="submit" id="hasil-cek" class="btn btn-primary">
-                                    <i class="fa fa-search"></i>
-                                    Cek
-                                    <div class="ripple-container"></div>
-                                </button>
-                            </div> -->
-                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 <body class="index-page centered"> 
+<!-- <div class="btn btn-info pull-right" onclick="location.href = '{{ url('player/saldo') }}';">
+    Cek Saldo
+    <div class="ripple-container"></div>
+</div> -->
 @stop
 
 <script type="text/javascript">
