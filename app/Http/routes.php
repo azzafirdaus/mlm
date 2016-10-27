@@ -128,6 +128,10 @@ Route::group(array('prefix' => 'admin'), function(){
     Route::group(array('prefix' => 'laporan'), function(){
         // main page for the admin/laporan section
         Route::get('/', 'AdminController@laporan');
+        Route::get('topup', 'AdminController@laporanTopup');
+        Route::get('register', 'AdminController@laporanRegister');
+        Route::get('tarik', 'AdminController@laporanTarik');
+
         Route::get('kasir', 'AdminController@kasir_laporan');
         Route::get('kartu', 'AdminController@kartu');
         Route::get('kaki', 'AdminController@kaki');

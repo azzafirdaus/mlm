@@ -11,14 +11,6 @@
             </a>
         </li>
         @if(Auth::user()->role == 'admin') 
-        <li class="@if('laporan' === $activePage) active @endif ">
-            <a href="{{ url('admin/laporan') }}">
-            <i class="fa fa-plus"></i> 
-            <span class="title">Transaksi Keseluruhan</span>
-            <span class="selected"></span>
-            </a>
-        </li>
-
         <li class="@if('kartu' === $activePage) active @endif ">
             <a href="#">
                 <i class="fa fa-credit-card"></i> 
@@ -29,19 +21,22 @@
             <ul class="sub-menu">
                 <li class="@if('topup' === $activePage) active @endif">
                     <a href="{{ url('admin/laporan/topup') }}">
-                    Laporan Top Up</a>
+                    Top Up</a>
                 </li>
                 <li class="@if('registrasi' === $activePage) active @endif">
-                    <a href="{{ url('admin/laporan/registrasi') }}">
-                    Laporan Registrasi</a>
+                    <a href="{{ url('admin/laporan/register') }}">
+                    Registrasi</a>
                 </li>
                 <li class="@if('tarik' === $activePage) active @endif">
                     <a href="{{ url('admin/laporan/tarik') }}">
-                    Laporan Tarik Tunai</a>
+                    Tarik Tunai</a>
+                </li>
+                <li class="@if('laporan' === $activePage) active @endif">
+                    <a href="{{ url('admin/laporan') }}">
+                    Kas</a>
                 </li>
             </ul>
         </li>
-
         <li class="@if('kasir' === $activePage) active @endif ">
             <a href="{{ url('admin/laporan/kasir') }}">
             <i class="fa fa-money"></i> 

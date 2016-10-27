@@ -34,7 +34,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/pages/login.css') }}" >
     <!-- END THEME STYLES -->
-    <link rel="shortcut icon" href="favicon.ico"/>
+    <link rel="shortcut icon" href="{{ asset('assets/img/favicon.png') }}"/>
+    
 </head>
 <!-- END HEAD -->
 
