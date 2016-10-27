@@ -13,20 +13,6 @@
                         @foreach ($errors->all() as $error)
                         <li style='font-size: 16px; color: red; text-align: center;'>{{ $error }}</li>
                         @endforeach
-                        
-                        <div class="row">
-                            <div class="col-md-10 col-md-push-1">
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-barcode"></i>
-                                    </span>
-                                    <div class="form-group is-empty is-focused">
-                                        <input text="text" class="form-control" placeholder="Nomor Kartu" name="idkartu" id="idkartu">
-                                        <span class="material-input"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
                         <!-- addition -->
                         <div class="row">
@@ -36,12 +22,26 @@
                                         <i class="fa fa-money"></i>
                                     </span>
                                     <div class="form-group is-empty is-focused">
-                                        <input text="text" class="form-control" placeholder="Jumlah Saldo Dikurangi" name="jumlahtarik" id="jumlahtarik">
+                                        <input text="text" class="form-control" style='font-size: 24px;' placeholder="Jumlah Saldo Dikurangi" name="jumlahtarik" id="jumlah-auto">
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
                             </div>
                         </div><!-- end of addition -->
+
+                        <div class="row">
+                            <div class="col-md-10 col-md-push-1">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-barcode"></i>
+                                    </span>
+                                    <div class="form-group is-empty is-focused">
+                                        <input text="text" class="form-control" style='font-size: 24px;' placeholder="Nomor Kartu" name="idkartu" id="idkartu">
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <br />
                         <div class="row">
                             <div class="col-md-4 col-md-pull-1" style="padding-left:3em; padding-top:2em;">
@@ -67,9 +67,3 @@
     </div>
 </body>
 @stop
-
-<script type="text/javascript">
-    window.onload = function() {
-      var input = document.getElementById("idkartu").focus();
-    }
-</script>

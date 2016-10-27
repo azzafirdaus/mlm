@@ -15,13 +15,14 @@
                     <p style='font-size: 16px; color: green; text-align: center;'>{{ isset($success) ? $success : ''}}</p>
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="btn btn-primary col-md-4 col-md-push-2 text-center" onclick="location.href = '{{ url('player/daftar/kepala') }}';" 
+                            <button class="btn btn-primary col-md-4 col-md-push-2 text-center" onclick="location.href = '{{ url('player/daftar/kepala') }}';" 
                                 @if($idkepala == '') style="background-color: grey" 
+                                @elseif(isset($idkepala)) disabled 
                                 @endif
                             >
                                 Kepala
                                 <div class="ripple-container"></div>
-                            </div>
+                            </button>
                         </div>
                     </div>
                     <br /><br /><br />

@@ -75,7 +75,7 @@ Route::group(array('prefix' => 'cashier'), function(){
 
     Route::post('tarik/print', function(){
         return View::make('cashier.menu-close')
-        	->with('success', 'Reset kartu berhasil dilakukan');
+        	->with('success', 'Tarik tunai berhasil dilakukan');
     });
 
     Route::get('register', 'CashierController@register');

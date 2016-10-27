@@ -33,14 +33,13 @@
                     <div class="row">
                         <div class="col-md-12 col-md-push-1" style="padding-left:0;">
                             <div class="col-md-12 text-center" style="padding-left: 2.8em; padding-right:0;">
-                                <ul>
-                                     @foreach ($errors->all() as $error)
-                                    <li style='font-size: 16px; color: red'>{{ $error }}</li>
-                                     @endforeach
-                                <p style='font-size: 16px; color: green; margin-top:-2em!important;'>{{ isset($success)? $success : '' }}</p>
+                                 @foreach ($errors->all() as $error)
+                                <li style='font-size: 16px; color: red; text-align: center;'>{{ $error }}</li>
+                                 @endforeach
 
                                 <?='<span style="font-size: 16px; color: red">'.Session::get('condition').'</span>'?>
-                                </ul>
+                                <p style='font-size: 16px; color: green; margin-top:-2em!important;'>{{ isset($success)? $success : '' }}</p>
+
                                 <br />
                                 <ul class="nav nav-pills" role="tablist">
                                     <li>

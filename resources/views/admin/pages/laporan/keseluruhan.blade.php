@@ -26,7 +26,7 @@
                 <span class="input-group-btn">
                 <button class="btn btn-default" type="button"><i class="fa fa-calendar"></i></button>
                 </span>
-                <input type="date" class="form-control form-filter">
+                <input type="date" class="form-control form-filter" value="{{ $lastDate }}">
             </div>
         </div>
       </div>
@@ -35,16 +35,16 @@
         <div class="portlet">
           <div class="portlet-body">
             <div class="laporan-kas">
-              <p>Tanggal Transaksi:</p>
-              <p>Nominal Top Up Kartu:</p>
-              <p>Nominal Registrasi Kartu:</p>
-              <p>Nominal Penarikan Saldo:</p>
+              <p>Tanggal Transaksi : {{ $lastDate }}</p>
+              <p>Nominal Top Up Kartu : Rp. {{ number_format($totalTopup) }}</p>
+              <p>Nominal Registrasi Kartu : Rp. {{ number_format($totalRegister) }}</p>
+              <p>Nominal Penarikan Saldo :  Rp. {{ number_format($totalTarik) }}</p>
             </div>
             <br/><br />
             <!-- print struk -->
             <div class="struk">
-                <p>Tanggal Transaksi:</p>
-                <p>Total Laporan Kas:</p>
+                <p>Tanggal Transaksi : {{ $lastDate }}</p>
+                <p>Total Laporan Kas : Rp. {{ number_format($totalTopup + $totalRegister - $totalTarik) }}</p>
             </div><!-- end of print struk --> 
                           
           </div>

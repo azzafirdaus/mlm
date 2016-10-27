@@ -23,7 +23,7 @@
                                         <i class="fa fa-money"></i>
                                     </span>
                                     <div class="form-group is-empty is-focused">
-                                        <input text="text" class="form-control" autocomplete="off" placeholder="Saldo Kartu" name="saldo">
+                                        <input text="text" class="form-control" style='font-size: 24px;' autocomplete="off" placeholder="Saldo Kartu" name="saldo" id="jumlah-auto">
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
@@ -36,7 +36,7 @@
                                         <i class="fa fa-barcode"></i>
                                     </span>
                                     <div class="form-group is-empty is-focused">
-                                        <input text="text" class="form-control" autocomplete="off" placeholder="Nomor Kartu" name="idkartu">
+                                        <input text="text" class="form-control" style='font-size: 24px;' autocomplete="off" placeholder="Nomor Kartu" name="idkartu">
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
@@ -66,9 +66,3 @@
     </div>
 </body>
 @stop
-
-<script type="text/javascript">
-    window.onload = function() {
-      var input = document.getElementById("idkartu").focus();
-    }
-</script>
