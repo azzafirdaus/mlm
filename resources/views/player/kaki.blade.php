@@ -24,7 +24,7 @@
                                         <i class="fa fa-barcode"></i>
                                     </span>
                                     <div class="form-group is-empty is-focused">
-                                        <input text="text" class="form-control" placeholder="Nomor Kartu" name="idkartu" id="idkartu">
+                                        <input text="text" class="form-control" style='font-size: 24px;' placeholder="Nomor Kartu" name="idkartu" id="idkartu">
                                         <span class="material-input"></span>
                                     </div>
                                 </div>

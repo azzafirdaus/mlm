@@ -37,9 +37,14 @@
     <script src="{{ asset('assets/js/bootstrap-datepicker.js') }}" type="text/javascript"></script>
 
     <!-- Control Center for Material Kit: activating the ripples, parallax effects, scripts from the example pages etc -->
+    <script src="{{ asset('assets/plugins/jquery-lazzynumeric/js/autoNumeric.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/plugins/jquery-lazzynumeric/js/jquery.lazzynumeric.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/plugins/jquery-lazzynumeric/js/jquery.lazzynumeric.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/js/material-kit.js') }}" type="text/javascript"></script>
 
     <script type="text/javascript">
+
+        $("#jumlah-auto").lazzynumeric({aSep: ".", aDec: ","});
 
         $().ready(function(){
             // the body of this function is in assets/material-kit.js
@@ -51,7 +56,7 @@
 
                 $(window).on('scroll', materialKitDemo.checkScrollForParallax);
             }
-
         });
+
     </script>
 </html>

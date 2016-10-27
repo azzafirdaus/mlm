@@ -68,6 +68,24 @@ class AdminController extends Controller{
         return redirect('auth/adminlogin')->with('loginError', 'Please login first!');
     }
 
+    public function laporan($tanggal = null){
+
+        $ldate = date('Y-m-d H:i:s');
+        list($date, $time) = preg_split('/[ ]/', $ldate);
+        
+        $totalTopup = KartuHistori::getTotalTopupOn(Periode::getLastId());
+        $totalRegister = KartuHistori::getTotalRegistrasiOn(Periode::getLastId());
+        $totalTarik = KartuHistori::getTotalTarikOn(Periode::getLastId());
+        
+        return view('admin/pages/laporan/keseluruhan')
+            ->with('lastDate', $date)
+            ->with('totalTopup', $totalTopup)
+            ->with('totalRegister', $totalRegister)
+            ->with('totalTarik', $totalTarik)
+            ->with('activePage', 'trans-keseluruhan')
+            ->with('peran', 0);
+    }
+
     public function pengguna(){
         if(Auth::check()){
             return view('admin.pages.pengguna')
@@ -133,27 +151,6 @@ class AdminController extends Controller{
             ->with('loginError', 'Please login first!');
     }
 
-    public function laporan(){
-
-        $ldate = date('Y-m-d H:i:s');
-        list($date, $time) = preg_split('/[ ]/', $ldate);
-        
-        $totalBar = TransaksiBar::getTotalTransaksiOn(Periode::getLastId());
-        $totalBar2 = TransaksiBar2::getTotalTransaksiOn(Periode::getLastId());
-        $totalBar3 = TransaksiBar3::getTotalTransaksiOn(Periode::getLastId());
-        $totalMassage = TransaksiMassage::getTotalTransaksiOn(Periode::getLastId());
-        $totalKaraoke = TransaksiKaraoke::getTotalTransaksiOn(Periode::getLastId());
-        
-        return view('admin/pages/transaksi-keseluruhan')
-            ->with('lastDate', $date)
-            ->with('totalBar', $totalBar)
-            ->with('totalBar2', $totalBar2)
-            ->with('totalBar3', $totalBar3)
-            ->with('totalKaraoke', $totalKaraoke)
-            ->with('totalMassage', $totalMassage)
-            ->with('activePage', 'trans-keseluruhan')
-            ->with('peran', 0);
-    }
 
     public function setoran(){
 

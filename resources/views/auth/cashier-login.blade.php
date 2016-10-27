@@ -26,7 +26,7 @@
                                         <i class="fa fa-user"></i>
                                     </span>
                                     <div class="form-group is-empty is-focused">
-                                        <input type="text" class="form-control" autocomplete="off" placeholder="Username" name="username">
+                                        <input type="text" class="form-control" style='font-size: 24px;' autocomplete="off" placeholder="Username" name="username">
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
@@ -39,7 +39,7 @@
                                         <i class="fa fa-lock"></i>
                                     </span>
                                     <div class="form-group is-empty is-focused">
-                                        <input type="password" class="form-control" autocomplete="off" placeholder="Password" name="password">
+                                        <input type="password" class="form-control" style='font-size: 24px;' autocomplete="off" placeholder="Password" name="password">
                                         <span class="material-input"></span>
                                     </div>
                                 </div>

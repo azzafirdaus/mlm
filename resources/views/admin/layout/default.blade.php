@@ -46,9 +46,11 @@
 @include('admin.layout.sidebar') 
 <!-- END SIDEBAR -->
 
-<!-- BEGIN CONTENT -->    
-<div class="page-content">
+<!-- BEGIN CONTENT -->  
+<div class="page-content-wrapper">
+  <div class="page-content">
     @yield('content') 
+  </div>
 </div>
 <!-- END CONTENT -->
 

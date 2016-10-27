@@ -17,10 +17,10 @@
                             <div class="col-md-10 col-md-push-1">
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-barcode"></i>
+                                        <i class="fa fa-money"></i>
                                     </span>
                                     <div class="form-group is-empty is-focused">
-                                        <input text="text" class="form-control" autocomplete="off" placeholder="Nomor Kartu" name="idkartu" id="idkartu">
+                                        <input text="text" class="form-control" type="text" style='font-size: 24px;' autocomplete="off" placeholder="Jumlah Top Up" name="jumlahtopup" id="jumlah-auto">
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
@@ -31,16 +31,15 @@
                             <div class="col-md-10 col-md-push-1">
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-money"></i>
+                                        <i class="fa fa-barcode"></i>
                                     </span>
                                     <div class="form-group is-empty is-focused">
-                                        <input text="text" class="form-control" autocomplete="off" placeholder="Jumlah Top Up" name="jumlahtopup" id="jumlahtopup">
+                                        <input text="text" class="form-control" type="text" style='font-size: 24px;' autocomplete="off" placeholder="Nomor Kartu" name="idkartu" id="idkartu">
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
                         <br />
                         <div class="form-actions hidden-print">
                             <div class="col-md-4 col-md-pull-1" style="padding-left:3em; padding-top:2em;">
@@ -65,9 +64,3 @@
     </div>
 </body>
 @stop
-
-<script type="text/javascript">
-    window.onload = function() {
-      var input = document.getElementById("idkartu").focus();
-    }
-</script>

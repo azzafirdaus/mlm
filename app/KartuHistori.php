@@ -11,14 +11,28 @@ class KartuHistori extends Model
     protected $table = 'kartu_histori';
     public $timestamps = false;
     
-    public static function getTotalTransaksi(){
-        $transactions = DB::table('kartu_histori')->count();
-        return $transactions;
+    public static function getAllTransaksi(){
+        return DB::table('kartu_histori')->get();
     }
 
-    public static function getAllTransaksi(){
-        $transactions = DB::table('kartu_histori')->get();
-        return $transactions;
+    public static function getTotalTransaksi(){
+        return DB::table('kartu_histori')->count();
+    }
+
+    public static function getTotalOn($id) {
+        return DB::table('kartu_histori')->where('idperiode', $id)->sum('total');
+    }
+
+    public static function getTotalTopupOn($id) {
+        return DB::table('kartu_histori')->where('idperiode', $id)->where('jenis', 'Top Up')->sum('total');
+    }
+
+    public static function getTotalRegistrasiOn($id) {
+        return DB::table('kartu_histori')->where('idperiode', $id)->where('jenis', 'Registrasi')->sum('total');
+    }
+
+    public static function getTotalTarikOn($id) {
+        return DB::table('kartu_histori')->where('idperiode', $id)->where('jenis', 'Tarik Tunai')->sum('total');
     }
 
     public static function deleteTuple($id) {
@@ -33,10 +47,6 @@ class KartuHistori extends Model
         DB::table('kartu_histori')->truncate();
     }
     
-    public static function getTotalOn($id) {
-        return DB::table('kartu_histori')->where('id', $id)->sum('total');
-    }
-
     public static function getLaporanKasir() {
         return DB::table('kartu_histori')
         ->select('namakasir', DB::raw('count(case jenis when "Registrasi" then 1 else null end) as total_berapa, sum(total) as total_kasir'))
