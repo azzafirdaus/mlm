@@ -43,4 +43,12 @@ class Kartu extends Model
         
         return $status;
     }
+
+    public static function isKaki($id) {
+        $status = DB::table('kartu')->where('id', $id)->pluck('iskaki');
+        
+        return $status;
+    }
+
+    
 }

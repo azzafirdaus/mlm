@@ -70,10 +70,10 @@ Route::group(array('prefix' => 'cashier'), function(){
 	Route::get('kaki', 'CashierController@kaki');
     Route::post('kaki', 'CashierController@cekKaki');
 
-    Route::get('reset', 'CashierController@reset');
-    Route::post('reset', 'CashierController@resetKartu');
+    Route::get('tarik', 'CashierController@tarik');
+    Route::post('tarik', 'CashierController@tarikSaldo');
 
-    Route::post('reset/print', function(){
+    Route::post('tarik/print', function(){
         return View::make('cashier.menu-close')
         	->with('success', 'Reset kartu berhasil dilakukan');
     });
@@ -104,6 +104,16 @@ Route::group(array('prefix' => 'player'), function(){
     Route::get('kaki', 'PlayerController@kaki');
     Route::post('kaki', 'PlayerController@cekKaki');
 
+    Route::group(array('prefix' => 'daftar'), function(){
+        //page daftar
+        Route::get('/', 'PlayerController@daftar');
+
+        Route::get('kepala', 'PlayerController@daftarKepala');
+        Route::post('kepala', 'PlayerController@submitKepala');
+
+        Route::get('kaki', 'PlayerController@daftarKaki');
+        Route::post('kaki', 'PlayerController@submitKaki');
+    });
 });
 
 /*

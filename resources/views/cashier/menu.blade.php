@@ -37,7 +37,7 @@
                                      @foreach ($errors->all() as $error)
                                     <li style='font-size: 16px; color: red'>{{ $error }}</li>
                                      @endforeach
-                                <p style='font-size: 16px; color: green; margin-top:-2em!important;'>{{ $success }}</p>
+                                <p style='font-size: 16px; color: green; margin-top:-2em!important;'>{{ isset($success)? $success : '' }}</p>
 
                                 <?='<span style="font-size: 16px; color: red">'.Session::get('condition').'</span>'?>
                                 </ul>
@@ -58,7 +58,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ url('cashier/reset') }}">
+                                        <a href="{{ url('cashier/tarik') }}">
                                             <i class="fa fa-dollar"></i>
                                             <br />
                                             Tarik Saldo

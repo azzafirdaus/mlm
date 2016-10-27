@@ -20,11 +20,26 @@
         </li>
 
         <li class="@if('kartu' === $activePage) active @endif ">
-            <a href="{{ url('admin/laporan/kartu') }}">
-            <i class="fa fa-credit-card"></i> 
-            <span class="title">Kartu</span>
-            <span class="selected"></span>
+            <a href="#">
+                <i class="fa fa-credit-card"></i> 
+                <span class="title">Laporan Kartu</span>
+                <span class="selected"></span>
+                <span class="arrow"></span>
             </a>
+            <ul class="sub-menu">
+                <li class="@if('topup' === $activePage) active @endif">
+                    <a href="{{ url('admin/laporan/topup') }}">
+                    Laporan Top Up</a>
+                </li>
+                <li class="@if('registrasi' === $activePage) active @endif">
+                    <a href="{{ url('admin/laporan/registrasi') }}">
+                    Laporan Registrasi</a>
+                </li>
+                <li class="@if('tarik' === $activePage) active @endif">
+                    <a href="{{ url('admin/laporan/tarik') }}">
+                    Laporan Tarik Tunai</a>
+                </li>
+            </ul>
         </li>
 
         <li class="@if('kasir' === $activePage) active @endif ">

@@ -6,7 +6,7 @@
 	<link rel="icon" type="image/png" href="assets/img/favicon.png">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-	<title>Cashier Menu</title>
+	<title>Material Kit by Creative Tim</title>
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
 
@@ -37,43 +37,49 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-3">
-                            <div class="btn btn-primary btn-cashier">
+                        <div class="col-md-3 col-md-push-1">
+                            <a class="btn btn-primary btn-cashier" href="cek-saldo.html">
                                 <i class="fa fa-search"></i>
                                 &nbsp;Cek Saldo
                                 <div class="ripple-container"></div>
-                            </div>
+                            </a>
                         </div>
-                        <div class="col-md-3 col-md-pull-1 col-pull">
-                            <div class="btn btn-primary btn-cashier">
+                        <div class="col-md-3 col-md-push-2">
+                            <a class="btn btn-primary btn-cashier">
                                 <i class="fa fa-credit-card"></i>
-                                &nbsp;Kosongkan Kartu
-                                <div class="ripple-container"></div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-md-pull-1 col-pull">
-                            <div class="btn btn-primary btn-cashier">
-                                <i class="fa fa-dollar"></i>
                                 &nbsp;Open Transaction
                                 <div class="ripple-container"></div>
-                            </div>
+                            </a>
+                        </div>
+                        <div class="col-md-3 col-md-push-2" style="display:none;">
+                            <a class="btn btn-primary btn-cashier">
+                                <i class="fa fa-credit-card"></i>
+                                &nbsp;Close Transaction
+                                <div class="ripple-container"></div>
+                            </a>
                         </div>
                     </div>
                     <br /><br />
                     <div class="row">
                         <div class="col-md-10 col-md-push-1">
-                            <div class="col-md-10 col-md-push-2 push-right">
+                            <div class="col-md-12 text-center" style="padding-left: 2.8em; padding-right:0;">
                                 <ul class="nav nav-pills" role="tablist">
                                     <li>
-                                        <a href="#dashboard" role="tab" data-toggle="tab">
+                                        <a href="register-kartu.html">
                                             <i class="fa fa-user"></i>
                                             Register
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#schedule" role="tab" data-toggle="tab">
+                                        <a href="top-up.html">
                                             <i class="fa fa-money"></i>
                                             Top Up Saldo
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="reset-kartu.html">
+                                            <i class="fa fa-money"></i>
+                                            Tarik Saldo
                                         </a>
                                     </li>
                                </ul>
@@ -83,11 +89,11 @@
                     <br /><br />
                     <div class="row">
                         <div class="col-md-4">
-                            <div class="btn btn-info">
+                            <a class="btn btn-info" href="login.html">
                                 <i class="fa fa-sign-out"></i>
                                 &nbsp;Logout
                                 <div class="ripple-container"></div>
-                            </div>
+                            </a>
                         </div>
                     </div>
                 </div>
