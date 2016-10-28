@@ -14,8 +14,6 @@
                             <li style='font-size: 16px; color: red'>{{ $error }}</li>
                              @endforeach
                         </ul>
-                        <?='<span style="font-size: 16px; color: red">'.Session::get('loginError').'</span>'?>
-                        
                         <div id="tagihan">
                             <div class="row hidden-print">
                                 <div class="col-md-10 col-md-push-1 hidden-print">
@@ -25,6 +23,7 @@
                             <br />
                             <div class="row ">
                                 <div class="col-md-10 col-md-push-1 text-center">
+                                    <p class="visible-print">Tanggal: {{ $date }}</p>                                    
                                     <table class="table">
                                         <thead>
                                             <tr>

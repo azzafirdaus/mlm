@@ -47,7 +47,6 @@
     				<div class="portlet">
     					<div class="portlet-body">
                             <p class="hidden">{{ $count = 1 }}</p>
-                            <p class="hidden">{{ $jumlah = 0 }}</p>
     						<!-- print struk -->
                             <div class="struk">
                                 <p>Tanggal Transaksi : {{ isset($startdate) ? $startdate : 'start' }} - {{ isset($enddate) ? $enddate : 'last' }}</p>
@@ -100,7 +99,6 @@
                                             <td class="text-center">
                                                 {{ $item->namakasir }}
                                             </td>
-                                            <p class="hidden">{{ $jumlah += $item->total }}</p>
                                         </tr>
                                         @endforeach
                                     </tbody>
