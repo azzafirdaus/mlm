@@ -100,9 +100,17 @@ class AdminController extends Controller{
     public function topup(){
         if(Auth::check()){   
             $startdate = date('Y-m-d', strtotime(Periode::getLastDate()));
+            
+            $jumlah = 0;
+            $data = KartuHistori::all()->where('jenis', 'Top Up')->where('idperiode', Periode::getLastId());
+            
+            foreach ($data as $key => $item) {
+                $jumlah += $item->total; 
+            }
 
             return view('admin.pages.laporan.topup')
-                ->with('data', KartuHistori::all()->where('jenis', 'Top Up')->where('idperiode', Periode::getLastId()))
+                ->with('data', $data)
+                ->with('jumlah', $jumlah)
                 ->with('activePage', 'lap-topup')
                 ->with('startdate', $startdate)
                 ->with('peran', 0);
@@ -120,13 +128,20 @@ class AdminController extends Controller{
             $startdate = Input::get('startdate');
             $enddate = Input::get('enddate');
 
+            $jumlah = 0;
             $periods = KartuHistori::getByDate($startdate, $enddate);
-
-            return view('admin.pages.laporan.topup')
-                ->with('data', DB::table('kartu_histori')
+            $data = DB::table('kartu_histori')
                     ->where('jenis', 'Top Up')
                     ->whereIn('idperiode', $periods)
-                    ->get())
+                    ->get();
+
+            foreach ($data as $key => $item) {
+                $jumlah += $item->total; 
+            }
+
+            return view('admin.pages.laporan.topup')
+                ->with('data', $data)
+                ->with('jumlah', $jumlah)
                 ->with('activePage', 'lap-topup')
                 ->with('startdate', $startdate)
                 ->with('enddate', $enddate)
@@ -144,10 +159,16 @@ class AdminController extends Controller{
         if(Auth::check()){   
             $startdate = date('Y-m-d', strtotime(Periode::getLastDate()));
 
+            $jumlah = 0;
+            $data = KartuHistori::all()->where('jenis', 'Registrasi')->where('idperiode', Periode::getLastId());
+            
+            foreach ($data as $key => $item) {
+                $jumlah += $item->total; 
+            }
+
             return view('admin.pages.laporan.register')
-                ->with('data', KartuHistori::all()
-                    ->where('jenis', 'Registrasi')
-                    ->where('idperiode', Periode::getLastId()))
+                ->with('data', $data)
+                ->with('jumlah', $jumlah)
                 ->with('activePage', 'lap-register')
                 ->with('startdate', $startdate)
                 ->with('peran', 0);
@@ -165,13 +186,20 @@ class AdminController extends Controller{
             $startdate = Input::get('startdate');
             $enddate = Input::get('enddate');
 
+            $jumlah = 0;
             $periods = KartuHistori::getByDate($startdate, $enddate);
-
-            return view('admin.pages.laporan.register')
-                ->with('data', DB::table('kartu_histori')
+            $data = DB::table('kartu_histori')
                     ->where('jenis', 'Registrasi')
                     ->whereIn('idperiode', $periods)
-                    ->get())
+                    ->get();
+
+            foreach ($data as $key => $item) {
+                $jumlah += $item->total; 
+            }
+
+            return view('admin.pages.laporan.register')
+                ->with('data', $data)
+                ->with('jumlah', $jumlah)
                 ->with('activePage', 'lap-register')
                 ->with('startdate', $startdate)
                 ->with('enddate', $enddate)
@@ -189,10 +217,16 @@ class AdminController extends Controller{
         if(Auth::check()){   
             $startdate = date('Y-m-d', strtotime(Periode::getLastDate()));
 
+            $jumlah = 0;
+            $data = KartuHistori::all()->where('jenis', 'Tarik Tunai')->where('idperiode', Periode::getLastId());
+            
+            foreach ($data as $key => $item) {
+                $jumlah += $item->total; 
+            }
+
             return view('admin.pages.laporan.tarik')
-                ->with('data', KartuHistori::all()
-                    ->where('jenis', 'Tarik Tunai')
-                    ->where('idperiode', Periode::getLastId()))
+                ->with('data', $data)
+                ->with('jumlah', $jumlah)
                 ->with('activePage', 'lap-tarik')
                 ->with('startdate', $startdate)
                 ->with('peran', 0);
@@ -210,13 +244,20 @@ class AdminController extends Controller{
             $startdate = Input::get('startdate');
             $enddate = Input::get('enddate');
 
+            $jumlah = 0;
             $periods = KartuHistori::getByDate($startdate, $enddate);
-
-            return view('admin.pages.laporan.tarik')
-                ->with('data', DB::table('kartu_histori')
+            $data = DB::table('kartu_histori')
                     ->where('jenis', 'Tarik Tunai')
                     ->whereIn('idperiode', $periods)
-                    ->get())
+                    ->get();
+
+            foreach ($data as $key => $item) {
+                $jumlah += $item->total; 
+            }
+
+            return view('admin.pages.laporan.tarik')
+                ->with('data', $data)
+                ->with('jumlah', $jumlah)
                 ->with('activePage', 'lap-tarik')
                 ->with('startdate', $startdate)
                 ->with('enddate', $enddate)

@@ -183,7 +183,8 @@ class CashierController extends Controller{
                 
                 return view('cashier.register-invoice')
                     ->with('idkartu', $idkartu)
-                    ->with('saldo', $saldo);
+                    ->with('saldo', $saldo)
+                    ->with('date', Periode::getLastDate());
             }    
             return redirect('cashier/register')->withErrors('Nomer kartu telah digunakan');            
         }
@@ -241,7 +242,8 @@ class CashierController extends Controller{
                 return view('cashier.topup-show')
                     ->with('idkartu', $idkartu)
                     ->with('sebelum', $saldo)
-                    ->with('jumlahtopup', $jumlahtopup);   
+                    ->with('jumlahtopup', $jumlahtopup)
+                    ->with('date', Periode::getLastDate());   
             }
             return redirect('cashier/topup')->withErrors("No kartu belum terdaftar");
         }
@@ -346,7 +348,8 @@ class CashierController extends Controller{
                         return view('cashier.tarik-show')
                             ->with('idkartu', $idkartu)
                             ->with('saldo', $saldo)
-                            ->with('jumlahtarik', $jumlahtarik);
+                            ->with('jumlahtarik', $jumlahtarik)
+                            ->with('date', Periode::getLastDate());
                     }
                     return redirect('cashier/tarik')->withErrors("Saldo anda kurang dari jumlah tarikan");
                 }

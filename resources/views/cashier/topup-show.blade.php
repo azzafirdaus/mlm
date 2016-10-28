@@ -62,10 +62,10 @@
                                     <hr />
                                 </div>
                             </div>
-                            <br />
                             <div class="row">
                                 <div class="col-md-10 col-md-push-1 text-center">
                                     <p>No. Kartu: {{ $idkartu }}</p>
+                                    <p class="visible-print">Tanggal: {{ $date }}</p>                                    
                                     <br />
                                     <table class="table">
                                         <thead>
@@ -77,9 +77,9 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td class="text-center">{{ $sebelum }}</td>
-                                                <td class="text-center">{{ $jumlahtopup }}</td>
-                                                <td class="text-center">{{ $sebelum + $jumlahtopup }}</td>
+                                                <td class="text-center">Rp. {{ number_format($sebelum) }}</td>
+                                                <td class="text-center">Rp. {{ number_format($jumlahtopup) }}</td>
+                                                <td class="text-center">Rp. {{ number_format($sebelum + $jumlahtopup) }}</td>
                                             </tr>
                                         </tbody>
                                     </table>

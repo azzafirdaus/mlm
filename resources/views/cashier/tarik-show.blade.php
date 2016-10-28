@@ -62,6 +62,7 @@
                             <div class="row">
                                 <div class="col-md-10 col-md-push-1 text-center">
                                     <p>No. Kartu: {{ isset($idkartu) ? $idkartu : '-' }}</p>
+                                    <p class="visible-print">Tanggal: {{ $date }}</p>                                    
                                     <br />
                                     <table class="table">
                                         <thead>

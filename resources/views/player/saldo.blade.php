@@ -24,7 +24,7 @@
                                         <i class="fa fa-barcode"></i>
                                     </span>
                                     <div class="form-group is-empty is-focused">
-                                        <input text="text" class="form-control" placeholder="Nomor Kartu" name="idkartu" id="idkartu">
+                                        <input text="text" class="form-control" style="font-size: 24px;" placeholder="Nomor Kartu" name="idkartu" id="idkartu">
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
@@ -34,15 +34,7 @@
                         <div class="form-actions">
                             <div class="col-md-4">
                                 <button type="button" onclick="location.href = '{{ url('/player') }}';" class="btn btn-info">
-                                    <i class="fa fa-angle-left"></i>
                                     Back
-                                    <div class="ripple-container"></div>
-                                </button>
-                            </div>
-                            <div class="col-md-4 pull-right">
-                                <button type="submit" id="hasil-cek" class="btn btn-primary">
-                                    <i class="fa fa-search"></i>
-                                    Cek
                                     <div class="ripple-container"></div>
                                 </button>
                             </div>

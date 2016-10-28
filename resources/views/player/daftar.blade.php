@@ -8,7 +8,6 @@
                 <div class="card cek-saldo cek-topup daftar-kaki">
                     <h1 class="text-center">Daftar Kaki</h1>
                     <input type="hidden" name="idkepala" value="{{ $idkepala }}">
-                    <br /><br/>
                     @foreach ($errors->all() as $error)
                     <li style='font-size: 16px; color: red; text-align: center'>{{ $error }}</li>
                     @endforeach
@@ -64,18 +63,14 @@
                             </button>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <button type="button" onclick="location.href = '{{ url('player') }}';" class="btn btn-info">
-                                <i class="fa fa-angle-left"></i>
-                                Back
-                                <div class="ripple-container"></div>
-                            </button>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 </body>
 @stop
+<script>
+    window.onload = function() {
+        setTimeout(function(){ location.href = "{{ url('player') }} "; }, 5000);
+    };
+</script>

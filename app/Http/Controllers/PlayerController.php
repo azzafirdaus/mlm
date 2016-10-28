@@ -87,36 +87,38 @@ class PlayerController extends Controller{
      * @return void
      */
     public function submitKepala(Request $request){
-        
-        $rules = array(
-            'idkartu' => 'required'
-        );
+        if(Periode::activeExist() == 1) {
+            $rules = array(
+                'idkartu' => 'required'
+            );
 
-        $validator = Validator::make(Input::all(), $rules);
+            $validator = Validator::make(Input::all(), $rules);
 
-        if(!$validator->fails()){
-            $idkartu = Input::get('idkartu');
+            if(!$validator->fails()){
+                $idkartu = Input::get('idkartu');
 
-            if(Kartu::checkAvailable($idkartu) != 0) {     
-                if(Kartu::isKaki($idkartu) == true) {
-                    if(RelasiKaki::getJumlahKaki($idkartu) < 2) {
-                        $request->session()->put('idkepala', $idkartu);
+                if(Kartu::checkAvailable($idkartu) != 0) {     
+                    if(Kartu::isKaki($idkartu) == true) {
+                        if(RelasiKaki::getJumlahKaki($idkartu) < 2) {
+                            $request->session()->put('idkepala', $idkartu);
 
+                            return view('player.daftar')
+                                ->with('jumlahkaki', RelasiKaki::getJumlahKaki($idkartu))
+                                ->with('success', 'Nomor kartu kepala berhasil dimasukkan')
+                                ->with('idkepala', $idkartu);
+                        }
                         return view('player.daftar')
                             ->with('jumlahkaki', RelasiKaki::getJumlahKaki($idkartu))
-                            ->with('success', 'Nomor kartu kepala berhasil dimasukkan')
+                            ->with('success', 'Nomor kartu kepala sudah memiliki dua kaki')
                             ->with('idkepala', $idkartu);
                     }
-                    return view('player.daftar')
-                        ->with('jumlahkaki', RelasiKaki::getJumlahKaki($idkartu))
-                        ->with('success', 'Nomor kartu kepala sudah memiliki dua kaki')
-                        ->with('idkepala', $idkartu);
-                }
-                return redirect('player/daftar/kepala')->withErrors("No kartu belum menjadi kaki");
+                    return redirect('player')->withErrors("No kartu belum menjadi kaki");
+                } 
+                return redirect('player')->withErrors("No kartu belum terdaftar");
             } 
-            return redirect('player/daftar/kepala')->withErrors("No kartu belum terdaftar");
+            return redirect('player')->withErrors($validator);
         } 
-        return redirect('player/daftar/kepala')->withErrors($validator);
+        return redirect('player')->withErrors('Transaksi belum dibuka');
     }
     
     /**
@@ -159,7 +161,7 @@ class PlayerController extends Controller{
                 
                         if(Kartu::getSaldo($idkaki) >= 500000 ) {
                 
-                            // if(RelasiKaki::cekBukanKaki($idkaki, $idkepala)) {
+                            if(RelasiKaki::cekBukanKaki($idkepala, $idkaki)) {
 
                                 //ubah status iskaki kartu menjadi aktif
                                 $kaki = Kartu::where('id', $idkaki)->first();
@@ -212,8 +214,8 @@ class PlayerController extends Controller{
                                     ->with('jumlahkaki', RelasiKaki::getJumlahKaki($idkepala))
                                     ->with('success', 'Nomor kartu kaki berhasil dimasukkan')
                                     ->with('idkepala', $idkepala);
-                            // }
-                            // return redirect('player/daftar/kaki')->withErrors("Kartu kepala tidak dapat dijadikan kaki");
+                            }
+                            return redirect('player/daftar/kaki')->withErrors("Kartu kepala tidak dapat dijadikan kaki");
                         }
                         return redirect('player/daftar/kaki')->withErrors("Maaf saldo anda tidak mencukupi");
                     }

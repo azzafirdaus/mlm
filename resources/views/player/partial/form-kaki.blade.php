@@ -20,7 +20,7 @@
                                         <i class="fa fa-barcode"></i>
                                     </span>
                                     <div class="form-group is-empty is-focused">
-                                        <input text="text" class="form-control" placeholder="Nomor Kartu" name="idkartu" id="idkartu">
+                                        <input text="text" class="form-control" style='font-size: 24px;' placeholder="Nomor Kartu" name="idkartu" id="idkartu">
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
@@ -30,18 +30,10 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <button type="button" onclick="location.href = '{{ url('/player') }}';" class="btn btn-info">
-                                    <i class="fa fa-angle-left"></i>
-                                    Home
+                                    Back
                                     <div class="ripple-container"></div>
                                 </button>
                             </div>
-                            <!-- <div class="col-md-4 pull-right">
-                                <button type="submit" id="hasil-cek" class="btn btn-primary">
-                                    <i class="fa fa-search"></i>
-                                    Cek
-                                    <div class="ripple-container"></div>
-                                </button>
-                            </div> -->
                         </div>
                     </form>
                 </div>
@@ -54,5 +46,6 @@
 <script type="text/javascript">
     window.onload = function() {
       var input = document.getElementById("idkartu").focus();
+      setTimeout(function(){ location.href = "{{ url('player') }} "; }, 5000);
     }
 </script>

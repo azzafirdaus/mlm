@@ -95,9 +95,9 @@ Route::group(array('prefix' => 'cashier'), function(){
 Route::group(array('prefix' => 'player'), function(){
     // main page for the player section
     Route::get('/',  function(){
-        return View::make('player.menu');
+        return View::make('player.partial.form-kepala');
     });
-
+    
     Route::get('saldo', 'PlayerController@saldo');
     Route::post('saldo', 'PlayerController@cekSaldo');
 
@@ -108,7 +108,7 @@ Route::group(array('prefix' => 'player'), function(){
         //page daftar
         Route::get('/', 'PlayerController@daftar');
 
-        Route::get('kepala', 'PlayerController@daftarKepala');
+        // Route::get('kepala', 'PlayerController@daftarKepala');
         Route::post('kepala', 'PlayerController@submitKepala');
 
         Route::get('kaki', 'PlayerController@daftarKaki');
