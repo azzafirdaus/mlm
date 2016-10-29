@@ -100,7 +100,7 @@ class AdminController extends Controller{
     public function topup(){
         if(Auth::check()){   
             $startdate = date('Y-m-d', strtotime(Periode::getLastDate()));
-            $enddate = date('Y-m-d', strtotime(Periode::getLastDate()));
+            $enddate = date('Y-m-d');
 
             $jumlah = 0;
             $data = KartuHistori::all()->where('jenis', 'Top Up')->where('idperiode', Periode::getLastId());
@@ -132,6 +132,7 @@ class AdminController extends Controller{
 
             $jumlah = 0;
             $periods = KartuHistori::getByDate($startdate, $enddate);
+            
             $data = DB::table('kartu_histori')
                     ->where('jenis', 'Top Up')
                     ->whereIn('idperiode', $periods)
@@ -160,6 +161,7 @@ class AdminController extends Controller{
     public function register(){
         if(Auth::check()){   
             $startdate = date('Y-m-d', strtotime(Periode::getLastDate()));
+            $enddate = date('Y-m-d');
 
             $jumlah = 0;
             $data = KartuHistori::all()->where('jenis', 'Registrasi')->where('idperiode', Periode::getLastId());
@@ -173,6 +175,7 @@ class AdminController extends Controller{
                 ->with('jumlah', $jumlah)
                 ->with('activePage', 'lap-register')
                 ->with('startdate', $startdate)
+                ->with('enddate', $enddate)
                 ->with('peran', 0);
         }
         return redirect('auth/adminlogin')->with('loginError', 'Please login first!');
@@ -190,6 +193,7 @@ class AdminController extends Controller{
 
             $jumlah = 0;
             $periods = KartuHistori::getByDate($startdate, $enddate);
+            
             $data = DB::table('kartu_histori')
                     ->where('jenis', 'Registrasi')
                     ->whereIn('idperiode', $periods)
@@ -215,9 +219,10 @@ class AdminController extends Controller{
      *
      * @return void
      */
-    public function tarik($tanggal = null){
+    public function tarik(){
         if(Auth::check()){   
             $startdate = date('Y-m-d', strtotime(Periode::getLastDate()));
+            $enddate = date('Y-m-d');
 
             $jumlah = 0;
             $data = KartuHistori::all()->where('jenis', 'Tarik Tunai')->where('idperiode', Periode::getLastId());
@@ -231,6 +236,7 @@ class AdminController extends Controller{
                 ->with('jumlah', $jumlah)
                 ->with('activePage', 'lap-tarik')
                 ->with('startdate', $startdate)
+                ->with('enddate', $enddate)
                 ->with('peran', 0);
         }
         return redirect('auth/adminlogin')->with('loginError', 'Please login first!');

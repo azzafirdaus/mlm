@@ -29,7 +29,7 @@
                         <br/><br />
                         <!-- print struk -->
                         <div class="struk">
-                            <p>Total Laporan Setoran: Rp. {{ number_format($totalKas - $totalKartu) }}</p>
+                            <p>Total Laporan Setoran: Rp. {{ number_format($totalKas + $totalKartu) }}</p>
                         </div><!-- end of print struk -->             
                     </div>
                 </div>

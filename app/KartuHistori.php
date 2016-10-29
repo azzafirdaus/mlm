@@ -63,10 +63,27 @@ class KartuHistori extends Model
     }
 
     public static function getByDate($startdate = null, $enddate = null){
-        $periods = DB::table('kartu_histori')
-            ->whereBetween('tanggal', [$startdate, $enddate])
-            ->distinct()
-            ->lists('idperiode');
+        if($startdate != null && $enddate != null){
+            $periods = DB::table('kartu_histori')
+                ->whereDate('tanggal', '>=', $startdate)
+                ->whereDate('tanggal', '<=', $enddate)
+                ->distinct()
+                ->lists('idperiode');
+        }elseif($startdate != null){
+            $periods = DB::table('kartu_histori')
+                ->whereDate('tanggal', '>=', $startdate)
+                ->distinct()
+                ->lists('idperiode');
+        }elseif($enddate != null){
+            $periods = DB::table('kartu_histori')
+                ->whereDate('tanggal', '<=', $enddate)
+                ->distinct()
+                ->lists('idperiode');
+        }else{
+            $periods = DB::table('kartu_histori')
+                ->distinct()
+                ->lists('idperiode');
+        }
 
         return $periods;
     }
