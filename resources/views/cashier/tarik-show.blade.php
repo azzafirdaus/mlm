@@ -4,7 +4,7 @@
 <body class="index-page centered"> 
     <div class="container">
         <div class="row">
-                        <div class="col-md-8 col-md-push-2">
+            <div class="col-md-8 col-md-push-2">
                 <div class="card cek-saldo reset-kartu">
                     <form class="saldo-form" action="{{ url('cashier/tarik') }}" method="post">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -15,7 +15,7 @@
                         @endforeach
                         
                         <!-- addition -->
-                        <div class="row">
+                        <div class="row hidden-print">
                             <div class="col-md-10 col-md-push-1">
                                 <div class="input-group">
                                     <span class="input-group-addon">

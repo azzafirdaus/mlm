@@ -7101,6 +7101,8 @@ td.visible-print {
   }
   table.visible-print {
     display: table;
+    margin-top: 0px;
+    width: 100%;
   }
   tr.visible-print {
     display: table-row !important;
@@ -7116,3 +7118,5 @@ td.visible-print {
     display: none !important;
   }
 }
+
+@page { margin: 0cm } /* All margins set to 2cm */

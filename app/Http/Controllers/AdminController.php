@@ -100,7 +100,8 @@ class AdminController extends Controller{
     public function topup(){
         if(Auth::check()){   
             $startdate = date('Y-m-d', strtotime(Periode::getLastDate()));
-            
+            $enddate = date('Y-m-d', strtotime(Periode::getLastDate()));
+
             $jumlah = 0;
             $data = KartuHistori::all()->where('jenis', 'Top Up')->where('idperiode', Periode::getLastId());
             
@@ -113,6 +114,7 @@ class AdminController extends Controller{
                 ->with('jumlah', $jumlah)
                 ->with('activePage', 'lap-topup')
                 ->with('startdate', $startdate)
+                ->with('enddate', $enddate)
                 ->with('peran', 0);
         }
         return redirect('auth/adminlogin')->with('loginError', 'Please login first!');
@@ -181,7 +183,7 @@ class AdminController extends Controller{
      *
      * @return void
      */
-    public function registrasiTanggal(){
+    public function registerTanggal(){
         if(Auth::check()){   
             $startdate = Input::get('startdate');
             $enddate = Input::get('enddate');
