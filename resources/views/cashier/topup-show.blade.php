@@ -1,115 +1,150 @@
-@extends('layouts.master')
+<!DOCTYPE html>
 
-@section('content')
-<body class="index-page centered"> 
-    <div class="container">
-        <form class="form" action="{{ url('cashier/topup') }}" method="post">
-            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            <div class="row">
-                <div class="col-md-8 col-md-push-2">
-                    <div class="card cek-saldo cek-topup">
-                        <h1 class="text-center form-title hidden-print" style="padding-top:1em;">Top Up Saldo</h1>
-                         <ul>
-                             @foreach ($errors->all() as $error)
-                            <li style='font-size: 16px; color: red'>{{ $error }}</li>
-                             @endforeach
-                        </ul>
-                        <?='<span style="font-size: 16px; color: red">'.Session::get('loginError').'</span>'?>
+<html lang="en" class="no-js">
+<!-- BEGIN HEAD -->
+    <head>
+        <meta charset="utf-8"/>
+        <title>Top Up Saldo</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+        <meta content="" name="description"/>
+        <meta content="" name="author"/>
+        <meta name="MobileOptimized" content="320">
+        <!-- BEGIN GLOBAL MANDATORY STYLES -->
+        <link href="{{ asset('assets/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/plugins/bootstrap/css/bootstrapCustom.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/plugins/uniform/css/uniform.default.css') }}" rel="stylesheet">
+        <!-- END GLOBAL MANDATORY STYLES -->
+        <!-- BEGIN PAGE LEVEL STYLES -->
+        <link href="{{ asset('assets/plugins/select2/select2_conquer.css') }}" rel="stylesheet">
+        <!-- END PAGE LEVEL SCRIPTS -->
+        <!-- BEGIN THEME STYLES -->
+        <link href="{{ asset('assets/css/style-conquer.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/css/styleCustom.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/css/style-responsive.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/css/plugins.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/css/themes/default.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/css/pages/loginWide.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
+        <!-- END THEME STYLES -->
+        <link rel="shortcut icon" href="favicon.ico"/>
+        <!-- BEGIN EXTERNAL SCRIPTS -->
 
-                        <div class="form-group hidden-print">
-                            <div class="col-md-10 col-md-push-1">
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-money"></i>
-                                    </span>
-                                    <div class="form-group is-empty is-focused">
-                                        <input text="text" class="form-control" autocomplete="off" placeholder="Jumlah Top Up" name="jumlahtopup" id="topup">
-                                        <span class="material-input"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group hidden-print">
-                            <div class="col-md-10 col-md-push-1">
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-barcode"></i>
-                                    </span>
-                                    <div class="form-group is-empty is-focused">
-                                        <input text="text" class="form-control" autocomplete="off" placeholder="Nomor Kartu" name="idkartu">
-                                        <span class="material-input"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <br />
-                        <div class="form-actions hidden-print">
-                            <div class="col-md-4 col-md-pull-1" style="padding-left:3em; padding-top:2em;">
-                                <button id = "lihat" class="btn btn-primary">
-                                    <i class="fa fa-search"></i>
-                                    Submit
-                                    <div class="ripple-container"></div>
-                                </button>
-                               
-                            </div>
-                        </div>
+    </head>
+    
+    <!-- BEGIN BODY -->
+    <body class="login">
+        <!-- BEGIN LOGO -->
+        <div class="logo visible-print">
+<!--            <img src="assets/img/logo.png" alt=""/>-->
+        </div>
+        <!-- END LOGO -->
+        <!-- BEGIN LOGIN -->
+        <div class="content">
+            <!-- BEGIN LOGIN FORM -->
+            <form class="login-form" action="{{ url('cashier/topup') }}" method="post">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <h3 class="form-title hidden-print" style='font-size: 38px;'>Pembayaran</h3>
+                <ul>
+                     @foreach ($errors->all() as $error)
+                    <li style='font-size: 16px; color: red'>{{ $error }}</li>
+                     @endforeach
+                </ul>
+                <?='<span style="font-size: 16px; color: red">'.Session::get('loginError').'</span>'?>
 
-                        <div id="tagihan">
-                            <br />
-                            <div class="row">
-                                <div class="col-md-10 col-md-push-1 hidden-print">
-                                     <br/>
-                                    <hr />
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-10 col-md-push-1 text-center">
-                                    <p>No. Kartu: {{ $idkartu }}</p>
-                                    <p class="visible-print">Tanggal: {{ $date }}</p>                                    
-                                    <br />
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center">Saldo Sebelum</th>
-                                                <th class="text-center">Jumlah Top Up</th>
-                                                <th class="text-center">Saldo Sekarang</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td class="text-center">Rp. {{ number_format($sebelum) }}</td>
-                                                <td class="text-center">Rp. {{ number_format($jumlahtopup) }}</td>
-                                                <td class="text-center">Rp. {{ number_format($sebelum + $jumlahtopup) }}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <br />
-                            <div class="form-actions hidden-print">
-                                <input type="hidden" name="idkartu" value="{{ $idkartu }}">
-                                <input type="hidden" name="jumlahtopup" value="{{ $jumlahtopup }}">
-                    
-                                <div class="col-md-4 pull-right" style="padding-left:2em;">
-                                    <button type="submit" formaction="topup/print" onclick="window.print();" class="btn btn-primary btn-print">
-                                        <i class="fa fa-print"></i>
-                                        Print
-                                        <div class="ripple-container"></div>
-                                    </button>
-                                </div>
-                                <div class="col-md-4 col-md-pull-1">
-                                    <button type="button" onclick="location.href = '{{ url('/cashier') }}';" class="btn btn-info">
-                                        <i class="fa fa-angle-left"></i>
-                                        Back to Cashier
-                                        <div class="ripple-container"></div>
-                                    </button>
-                                </div>
-                            </div>
+                <div class="form-group hidden-print">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-money fa-fw" style="font-size: 2em"></i>
+                        </span>
+                        <input class="form-control placeholder-no-fix" type="text" style='font-size: 24px;' autocomplete="off" placeholder="Jumlah Top Up" name="jumlahtopup" id="jumlah-auto" />
+                    </div>
+                </div>
+            
+                <div class="form-group hidden-print">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-barcode fa-fw" style="font-size: 2em"></i>
+                        </span>
+                        <input class="form-control placeholder-no-fix" type="text" style='font-size: 24px;' autocomplete="off" placeholder="No. Kartu" name="idkartu"/>
+                    </div>
+                </div>
+
+                <div class="form-actions hidden-print">
+                    <button type="submit" class="btn btn-info"> 
+                        <span class="glyphicon glyphicon-list"></span> Submit
+                    </button>
+                </div>
+                <br>
+                <div class="col-md-8 col-md-offset-1" style="font-size: 17px">
+                    <div id="tagihan">
+                        <div style="width: 300px">
+                            <p>No. Kartu : {{ $idkartu }}</p>
+                            <p style="font-size: 17px;">Tanggal : {{ $date }}</p>
+                        </div>
+                        <div>
+                            <table class="table table-hover" style="width:310px">
+                                <thead>
+                                    <tr>
+                                        <td>
+                                             Saldo Sebelum
+                                        </td>
+                                        <td>
+                                        : Rp. {{ number_format($sebelum) }}
+                                        </td>
+                                    </tr>
+                                </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        Jumlah Topup
+                                    </td>
+                                    
+                                    <td>
+                                        : Rp. {{ number_format($jumlahtopup) }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Saldo Akhir
+                                    </td>
+                                    <td>
+                                        : Rp. {{ number_format($sebelum + $jumlahtopup) }}
+                                    </td>
+                                </tr>    
+                            
+                            </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
-            </div>
-        </form>
-    </div>
-</body>
-@stop
+                <br>
+                <br>
+                <div style="padding-top: 20px"class="form-actions hidden-print">
+                    <button type="button" onclick="location.href = '{{ url('cashier') }}';" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-chevron-left"></span> Back To Cashier
+                    </button>
+                    <button type="submit" formaction="topup/print" class="btn btn-success pull-right" onclick="window.print();">
+                        <span class="glyphicon glyphicon-check"></span> Print
+                    </button>
+                   
+                </div>
+            </form>
+            <!-- END LOGIN FORM -->
+        </div>
+        <!-- END LOGIN -->
+    </body>
+<!-- END BODY -->
+</html>
+<script src="{{ asset('assets/js/jquery.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/plugins/jquery-lazzynumeric/js/autoNumeric.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/plugins/jquery-lazzynumeric/js/jquery.lazzynumeric.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/plugins/jquery-lazzynumeric/js/jquery.lazzynumeric.js') }}" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+     $("#jumlah-auto").lazzynumeric({aSep: ",", mDec: "0"});
+     window.onload = function() {
+      var input = document.getElementById("jumlah-auto").focus();
+    }
+</script>

@@ -1,113 +1,149 @@
-@extends('layouts.master')
+<!DOCTYPE html>
 
-@section('content')
-<body class="index-page centered"> 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-push-2">
-                <div class="card cek-saldo reset-kartu">
-                    <form class="saldo-form" action="{{ url('cashier/tarik') }}" method="post">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <h1 class="text-center hidden-print" style="padding-top:2em; padding-bottom:0.3em;">Tarik Tunai</h1>
+<html lang="en" class="no-js">
+<!-- BEGIN HEAD -->
+    <head>
+        <meta charset="utf-8"/>
+        <title>Tarik Saldo</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+        <meta content="" name="description"/>
+        <meta content="" name="author"/>
+        <meta name="MobileOptimized" content="320">
+        <!-- BEGIN GLOBAL MANDATORY STYLES -->
+        <link href="{{ asset('assets/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/plugins/bootstrap/css/bootstrapCustom.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/plugins/uniform/css/uniform.default.css') }}" rel="stylesheet">
+        <!-- END GLOBAL MANDATORY STYLES -->
+        <!-- BEGIN PAGE LEVEL STYLES -->
+        <link href="{{ asset('assets/plugins/select2/select2_conquer.css') }}" rel="stylesheet">
+        <!-- END PAGE LEVEL SCRIPTS -->
+        <!-- BEGIN THEME STYLES -->
+        <link href="{{ asset('assets/css/style-conquer.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/css/styleCustom.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/css/style-responsive.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/css/plugins.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/css/themes/default.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/css/pages/loginWide.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
+        <!-- END THEME STYLES -->
+        <link rel="shortcut icon" href="favicon.ico"/>
+        <!-- BEGIN EXTERNAL SCRIPTS -->
 
-                        @foreach ($errors->all() as $error)
-                        <li style='font-size: 16px; color: red; text-align:center'>{{ $error }}</li>
-                        @endforeach
-                        
-                        <!-- addition -->
-                        <div class="row hidden-print">
-                            <div class="col-md-10 col-md-push-1">
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-money"></i>
-                                    </span>
-                                    <div class="form-group is-empty is-focused">
-                                        <input text="text" class="form-control" placeholder="Jumlah Saldo Dikurangi">
-                                        <span class="material-input"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- end of addition -->
-                        <div class="row hidden-print">
-                            <div class="col-md-10 col-md-push-1">
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-barcode"></i>
-                                    </span>
-                                    <div class="form-group is-empty is-focused">
-                                        <input text="text" class="form-control" placeholder="Nomor Kartu" name="idkartu" id="idkartu">
-                                        <span class="material-input"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <br />
-                        <div class="row hidden-print">
-                            <div class="col-md-4 col-md-push-1" style="padding-left:0;">
-                                <button id="kosong" type="submit" class="btn btn-primary">
-                                    <i class="fa fa-credit-card"></i>
-                                    Submit
-                                    <div class="ripple-container"></div>
-                                </button>
-                            </div>                            
-                        </div>
-                        <div id="kosong-kartu">
-                            <br />
-                            <div class="row hidden-print">
-                                <div class="col-md-10 col-md-push-1">
-                                    <hr />
-                                </div>
-                            </div>
-                            <br />
-                            <div class="row">
-                                <div class="col-md-10 col-md-push-1 text-center">
-                                    <p>No. Kartu: {{ isset($idkartu) ? $idkartu : '-' }}</p>
-                                    <p class="visible-print">Tanggal: {{ $date }}</p>                                    
-                                    <br />
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center">Sisa Saldo Kartu</th>
-                                                <th class="text-center">Jumlah Tarik Tunai</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td class="text-center">Rp. {{ number_format($saldo-$jumlahtarik) }}</td>
-                                                <td class="text-center">Rp. {{ number_format($jumlahtarik) }}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <br />
-                            <div class="row hidden-print">
-                                <div class="col-md-4 col-md-pull-1" style="padding-left:3em;">
-                                    <button type="button" onclick="location.href = '{{ url('/cashier') }}';" class="btn btn-info">
-                                        <i class="fa fa-angle-left"></i>
-                                        Back to cashier
-                                        <div class="ripple-container"></div>
-                                    </button>
-                                </div>
-                                <div class="col-md-4 col-md-push-4" style="padding-left:0;">
-                                    <button type="submit" formaction="tarik/print" onclick="window.print();" class="btn btn-primary btn-print">
-                                        <i class="fa fa-print"></i>
-                                        Print
-                                        <div class="ripple-container"></div>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+    </head>
+    
+    <!-- BEGIN BODY -->
+    <body class="login">
+        <!-- BEGIN LOGO -->
+        <div class="logo visible-print">
+<!--            <img src="assets/img/logo.png" alt=""/>-->
         </div>
-    </div>
-</body>
-@stop
+        <!-- END LOGO -->
+        <!-- BEGIN LOGIN -->
+        <div class="content">
+            <!-- BEGIN LOGIN FORM -->
+            <form class="login-form" action="{{ url('cashier/tarik') }}" method="post">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <h3 class="form-title hidden-print" style='font-size: 38px;'>Tarik Tunai</h3>
+                <ul>
+                     @foreach ($errors->all() as $error)
+                    <li style='font-size: 16px; color: red'>{{ $error }}</li>
+                     @endforeach
+                </ul>
+
+                <div class="form-group hidden-print">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-money fa-fw" style="font-size: 2em"></i>
+                        </span>
+                        <input class="form-control placeholder-no-fix" type="text" style='font-size: 24px;' autocomplete="off" placeholder="Jumlah Saldo Dikurangi" name="jumlahtarik" id="jumlah-auto" />
+                    </div>
+                </div>
+            
+                <div class="form-group hidden-print">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-barcode fa-fw" style="font-size: 2em"></i>
+                        </span>
+                        <input class="form-control placeholder-no-fix" type="text" style='font-size: 24px;' autocomplete="off" placeholder="No. Kartu" name="idkartu"/>
+                    </div>
+                </div>
+
+                <div class="form-actions hidden-print">
+                    <button type="submit" class="btn btn-info"> 
+                        <span class="glyphicon glyphicon-list"></span> Submit
+                    </button>
+                </div>
+                <br>
+                <div class="col-md-8 col-md-offset-1" style="font-size: 17px">
+                    <div id="tagihan">
+                        <div style="width: 300px">
+                            <p>No. Kartu : {{ $idkartu }}</p>
+                            <p style="font-size: 17px;">Tanggal : {{ $date }}</p>
+                        </div>
+                        <div>
+                            <table class="table table-hover" style="width:310px">
+                                <thead>
+                                    <tr>
+                                        <td>
+                                             Saldo Awal
+                                        </td>
+                                        <td>
+                                        : Rp. {{ number_format($saldo) }}
+                                        </td>
+                                    </tr>
+                                </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        Jumlah Tarik
+                                    </td>
+                                    
+                                    <td>
+                                        : Rp. {{ number_format($jumlahtarik) }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Saldo Akhir
+                                    </td>
+                                    <td>
+                                        : Rp. {{ number_format($saldo - $jumlahtarik) }}
+                                    </td>
+                                </tr>    
+                            
+                            </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div style="padding-top: 20px"class="form-actions hidden-print">
+                    <button type="button" onclick="location.href = '{{ url('cashier') }}';" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-chevron-left"></span> Back To Cashier
+                    </button>
+                    <button type="submit" formaction="tarik/print" class="btn btn-success pull-right" onclick="window.print();">
+                        <span class="glyphicon glyphicon-check"></span> Print
+                    </button>
+                   
+                </div>
+            </form>
+            <!-- END LOGIN FORM -->
+        </div>
+        <!-- END LOGIN -->
+    </body>
+<!-- END BODY -->
+</html>
+<script src="{{ asset('assets/js/jquery.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/plugins/jquery-lazzynumeric/js/autoNumeric.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/plugins/jquery-lazzynumeric/js/jquery.lazzynumeric.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/plugins/jquery-lazzynumeric/js/jquery.lazzynumeric.js') }}" type="text/javascript"></script>
+
 
 <script type="text/javascript">
-    window.onload = function() {
-      var input = document.getElementById("idkartu").focus();
+     $("#jumlah-auto").lazzynumeric({aSep: ",", mDec: "0"});
+     window.onload = function() {
+      var input = document.getElementById("jumlah-auto").focus();
     }
 </script>
