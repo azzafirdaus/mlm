@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap/css/bootstrapCustom.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css') }}">
-    <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" />
+    <!-- <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" /> -->
     <link href="{{ asset('assets/css/material-kit.css') }}" rel="stylesheet"/>
 
     <!-- CSS Just for demo purpose, don't include it in your project -->
