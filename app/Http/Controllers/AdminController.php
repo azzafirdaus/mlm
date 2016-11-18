@@ -549,5 +549,25 @@ class AdminController extends Controller{
         }
         return redirect('auth/adminlogin')->with('loginError', 'Please login first!');
     }
+    
+    /**
+     * Admin laporan kaki.
+     *
+     * @return void
+     */
+    public function transaksiKaki(){
+        if(Auth::check()){   
+            $data = DB::table('kaki_histori')
+                     ->select('idkepala', DB::raw('count(*) as total'))
+                     ->groupBy('idkepala')
+                     ->get();
+
+            return view('admin.pages.kaki.jumlah')
+                ->with('data', $data)
+                ->with('activePage', 'jumlahkaki')
+                ->with('peran', 1);
+        }
+        return redirect('auth/adminlogin')->with('loginError', 'Please login first!');
+    }
 
 }

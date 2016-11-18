@@ -169,4 +169,5 @@ Route::group(array('prefix' => 'admin'), function(){
     Route::get('kaki', 'AdminController@kaki');
     Route::post('kaki', 'AdminController@kakiTanggal');
     Route::get('disable', 'AdminController@disable');
+    Route::get('kaki/jumlah', 'AdminController@transaksiKaki');
 });

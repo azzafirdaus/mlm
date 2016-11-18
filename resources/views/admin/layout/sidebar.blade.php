@@ -84,6 +84,14 @@
             <span class="selected"></span>
             </a>
         </li>
+
+        <li class="@if('jumlahkaki' === $activePage) active @endif ">
+            <a href="{{ url('admin/kaki/jumlah') }}">
+            <i class="fa fa-eye"></i> 
+            <span class="title">Jumlah Transaksi Kaki</span>
+            <span class="selected"></span>
+            </a>
+        </li>
         @endif
     </ul>
     <!-- END SIDEBAR MENU -->
