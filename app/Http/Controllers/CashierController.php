@@ -296,6 +296,51 @@ class CashierController extends Controller{
     }
 
     /**
+     * Scan page.
+     *
+     * @return void
+     */
+    public function scan(){
+
+        if(Auth::check()){
+            if(Periode::activeExist() == 1) {
+                return view('cashier.scan');     
+            }   
+            return redirect('cashier')->withErrors('Transaksi belum dibuka');
+        }
+        return redirect('/auth/cashierlogin')->with('loginError', 'Please login first!');
+    }
+
+    /**
+     * Scan results.
+     *
+     * @return void
+     */
+    public function cekScan(){
+        
+        $rules = array(
+            'idkartu' => 'required'
+        );
+
+        $validator = Validator::make(Input::all(), $rules);
+
+        if(!$validator->fails()){
+            $idkartu = Input::get('idkartu');
+
+            if(Kartu::checkAvailable($idkartu) != 0) {            
+            
+                if(Kartu::isActive($idkartu)) {
+            
+                    return view('cashier.scan-show')->with('scan', Kartu::getScan($idkartu));   
+                }
+                return redirect('cashier/scan')->withErrors("Status kartu masih disable");
+            }
+            return redirect('cashier/scan')->withErrors("No kartu belum terdaftar");
+        }   
+        return redirect('cashier/scan')->withErrors($validator);
+    }
+
+    /**
      * Tarik tunai page.
      *
      * @return void

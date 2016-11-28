@@ -66,8 +66,11 @@ Route::group(array('prefix' => 'cashier'), function(){
 
     Route::get('saldo', 'CashierController@saldo');
     Route::post('saldo', 'CashierController@cekSaldo');
-
-	Route::get('kaki', 'CashierController@kaki');
+    
+    Route::get('scan', 'CashierController@scan');
+    Route::post('scan', 'CashierController@cekScan');
+	
+    Route::get('kaki', 'CashierController@kaki');
     Route::post('kaki', 'CashierController@cekKaki');
 
     Route::get('tarik', 'CashierController@tarik');

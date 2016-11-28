@@ -50,5 +50,8 @@ class Kartu extends Model
         return $status;
     }
 
+    public static function getScan($id) {
+        return DB::table('kaki_histori')->where('idkepala', $id)->count();
+    }
     
 }

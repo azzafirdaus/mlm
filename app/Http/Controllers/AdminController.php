@@ -551,7 +551,7 @@ class AdminController extends Controller{
     }
     
     /**
-     * Admin laporan kaki.
+     * Admin laporan jumlah transaksi kaki.
      *
      * @return void
      */

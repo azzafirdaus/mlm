@@ -29,7 +29,7 @@
                     <br /><br /><br />
                     <div class="row">
                         <div class="col-md-4 col-md-push-1">
-                            <div class="btn btn-default" @if($jumlahkaki == 1) style="background-color: maroon" @endif >
+                            <div class="btn btn-default" @if($jumlahkaki >= 1) style="background-color: maroon" @endif >
                                 &nbsp;Kaki Bawah
                                 <div class="ripple-container"></div>
                             </div>

@@ -14,14 +14,22 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-3 col-md-push-1">
+                        <div class="col-md-3">
                             <button type="button" onclick="location.href = '{{ url('cashier/saldo') }}';" class="btn btn-primary btn-cashier">
                                 <i class="fa fa-search"></i>
                                 Cek Saldo
                                 <div class="ripple-container"></div>
                             </button>
                         </div>
-                        <div class="col-md-3 col-md-push-1">
+
+                        <div class="col-md-3">
+                            <button type="button" onclick="location.href = '{{ url('cashier/saldo') }}';" class="btn btn-primary btn-cashier">
+                                <i class="fa fa-search"></i>
+                                Cek Saldo
+                                <div class="ripple-container"></div>
+                            </button>
+                        </div>
+                        <div class="col-md-3">
                             <button class="btn btn-primary btn-cashier" data-toggle="modal" data-target="#openMd1">
                                 <i class="fa fa-credit-card"></i>
                                 Open Transaction

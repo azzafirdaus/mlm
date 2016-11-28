@@ -14,7 +14,15 @@
                         </div>
                     </div>
                     <div class="row">
-                         <div class="col-md-3 col-md-push-1">
+                        <div class="col-md-3">
+                            <button onclick="location.href = '{{ url('cashier/scan') }}';" class="btn btn-primary btn-cashier">
+                                <i class="fa fa-search"></i>
+                                Cek Scan
+                                <div class="ripple-container"></div>
+                            </button>
+                        </div>
+
+                        <div class="col-md-3">
                             <button onclick="location.href = '{{ url('cashier/saldo') }}';" class="btn btn-primary btn-cashier">
                                 <i class="fa fa-search"></i>
                                 Cek Saldo
@@ -22,7 +30,7 @@
                             </button>
                         </div>
                         
-                         <div class="col-md-3 col-md-push-1">
+                         <div class="col-md-3">
                             <button class="btn btn-primary btn-cashier" data-toggle="modal" data-target="#openMd1">
                                 <i class="fa fa-credit-card"></i>
                                 Close Transaction
